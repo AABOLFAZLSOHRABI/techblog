@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'gen/assets.gen.dart';
+import 'package:go_router/go_router.dart';
+import 'splash_screen.dart';
+import 'main_screen.dart';
+// import 'gen/assets.gen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,19 +37,22 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(fontSize: 14.0),
           bodySmall: TextStyle(fontSize: 12.0),
         ),
-      ),      home: const MyHomePage(),
+      ),
+      home: const SplashScreen(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Assets.images.logo.image(),)
-    );
-  }
-}
+final GoRouter _router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/main',
+      builder: (context, state) => const MainScreen(),
+    ),
+  ],
+);
