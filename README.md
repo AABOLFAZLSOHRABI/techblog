@@ -1,16 +1,16 @@
-# tec
+# 📰 TechBlog - بلاگ خبری تکنولوژی 🚀
 
-A new Flutter project.
+یک اپلیکیشن خبری **فلاتر** برای نمایش جدیدترین مقالات و اخبار حوزه تکنولوژی!
 
-## Getting Started
+## 📌 ویژگی‌ها
+✅ نمایش اخبار و مقالات تکنولوژی  
+✅ رابط کاربری جذاب و مدرن  
+✅ استفاده از API برای دریافت داده‌ها  
+✅ قابلیت بوکمارک کردن مقالات
 
-This project is a starting point for a Flutter application.
+## 🚀 نصب و اجرا
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. ابتدا مخزن را کلون کنید:
+   ```sh
+   git clone https://github.com/AABOLFAZLSOHRABI/techblog.git
+   cd techblog

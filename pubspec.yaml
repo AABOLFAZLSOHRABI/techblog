@@ -1,4 +1,4 @@
-name: tec
+name: techblog
 description: "A new Flutter project."
 publish_to: 'none'
 
@@ -37,9 +37,3 @@ flutter:
           weight: 700
         - asset: assets/fonts/DANA-REGULAR.ttf
           weight: 300
-
-# تنظیمات مربوط به چندزبانه بودن، در سطح root باید قرار بگیرد
-l10n:
-  arb-dir: lib/l10n
-  template-arb-file: app_en.arb
-  output-localization-file: app_localizations.dart
