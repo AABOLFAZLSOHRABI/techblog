@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'gen/assets.gen.dart';
+import 'models/fake_data.dart';
 import 'my_colors.dart';
 // import 'my_colors.dart';
 
@@ -39,7 +40,7 @@ class MainScreen extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(16)),
                         image: DecorationImage(
                           image:
-                              Image.asset(Assets.images.posterTest.path).image,
+                              AssetImage(HomePagePosterMap["imageAsset"]),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -61,11 +62,16 @@ class MainScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text("ابوالفضل - یک روز پیش",style: textTheme.bodyMedium),
-                            Text("Like 253",style: textTheme.bodyMedium),
+                            Text(HomePagePosterMap["writer"] + " - " + HomePagePosterMap["data"],style: textTheme.bodyMedium),
+                            Row(
+                              children: [
+                                Text(HomePagePosterMap["views"],style: textTheme.bodyMedium),
+                                const Icon(Icons.remove_red_eye,color: Colors.white,),
+                              ],
+                            ),
                           ],
                         ),
-                        Text("دوازده قدم برنامه نویسی یک دوره ...", style: textTheme.bodyLarge),
+                        Text(HomePagePosterMap["title"], style: textTheme.bodyLarge),
                       ],
                     ),
                   )
