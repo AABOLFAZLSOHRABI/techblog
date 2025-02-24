@@ -14,6 +14,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
+    double bodyMargin = size.width/10;
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -39,14 +40,12 @@ class MainScreen extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
                         image: DecorationImage(
-                          image:
-                              AssetImage(HomePagePosterMap["imageAsset"]),
+                          image: AssetImage(HomePagePosterMap["imageAsset"]),
                           fit: BoxFit.cover,
                         ),
                       ),
                       foregroundDecoration: const BoxDecoration(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(16)),
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
                         gradient: LinearGradient(
                           colors: GradientColors.homePosterCoverGradiant,
                           begin: Alignment.topCenter,
@@ -62,20 +61,73 @@ class MainScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(HomePagePosterMap["writer"] + " - " + HomePagePosterMap["data"],style: textTheme.bodyMedium),
+                            Text(
+                                HomePagePosterMap["writer"] +
+                                    " - " +
+                                    HomePagePosterMap["data"],
+                                style: textTheme.bodyMedium),
                             Row(
                               children: [
-                                Text(HomePagePosterMap["views"],style: textTheme.bodyMedium),
-                                const Icon(Icons.remove_red_eye,color: Colors.white,),
+                                Text(HomePagePosterMap["views"],
+                                    style: textTheme.bodyMedium),
+                                const SizedBox(width: 4),
+                                const Icon(
+                                  Icons.remove_red_eye,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
                               ],
                             ),
                           ],
                         ),
-                        Text(HomePagePosterMap["title"], style: textTheme.bodyLarge),
+                        Text(HomePagePosterMap["title"],
+                            style: textTheme.bodyLarge),
                       ],
                     ),
                   )
                 ],
+              ),
+              // tag list
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 60,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: tagList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding:EdgeInsets.fromLTRB(0, 8,index==0?bodyMargin:15, 8),
+                      child: Container(
+
+                        height: 60,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(24)),
+                          gradient: LinearGradient(
+                              colors: GradientColors.tags,
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          child: Row(
+                            children: [
+                              ImageIcon(
+                                AssetImage(Assets.icons.hashtagicon.path),
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                tagList[index].title,
+                                style: textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               )
             ],
           ),
