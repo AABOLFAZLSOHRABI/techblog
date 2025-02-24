@@ -8,16 +8,13 @@ import 'main_screen.dart';
 // import 'gen/assets.gen.dart';
 
 void main() {
-  void main() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: SolidColors.statusBarColor,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: SolidColors.statusBarColor,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
-  }
-
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: SolidColors.statusBarColor,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: SolidColors.statusBarColor,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
   runApp(const MyApp());
 }
 
@@ -28,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Localizations Sample App',
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -46,26 +44,13 @@ class MyApp extends StatelessWidget {
           headlineMedium:
               TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
           titleLarge: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-          bodyLarge: TextStyle(fontSize: 16.0),
-          bodyMedium: TextStyle(fontSize: 14.0),
+          bodyLarge: TextStyle(fontSize: 16.0, color: SolidColors.posterTitle),
+          bodyMedium:
+              TextStyle(fontSize: 14.0, color: SolidColors.posterSubTitle),
           bodySmall: TextStyle(fontSize: 12.0),
         ),
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
-
-final GoRouter _router = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      path: '/main',
-      builder: (context, state) => const MainScreen(),
-    ),
-  ],
-);
