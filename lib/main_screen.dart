@@ -1,11 +1,8 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:techblog/my_strings.dart';
 import 'gen/assets.gen.dart';
 import 'models/fake_data.dart';
 import 'my_colors.dart';
-// import 'my_colors.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -14,13 +11,14 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
-    double bodyMargin = size.width/10;
+    double bodyMargin = size.width / 10;
     return SafeArea(
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(top: 16),
           child: Column(
             children: [
+              //app bar
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -31,6 +29,7 @@ class MainScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(width: 8),
+              // Poster
               Stack(
                 children: [
                   Container(
@@ -70,7 +69,7 @@ class MainScreen extends StatelessWidget {
                               children: [
                                 Text(HomePagePosterMap["views"],
                                     style: textTheme.bodyMedium),
-                                const SizedBox(width: 4),
+                                const SizedBox(width: 8),
                                 const Icon(
                                   Icons.remove_red_eye,
                                   color: Colors.white,
@@ -96,9 +95,9 @@ class MainScreen extends StatelessWidget {
                   itemCount: tagList.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding:EdgeInsets.fromLTRB(0, 8,index==0?bodyMargin:15, 8),
+                      padding: EdgeInsets.fromLTRB(
+                          0, 8, index == 0 ? bodyMargin : 15, 8),
                       child: Container(
-
                         height: 60,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -128,7 +127,24 @@ class MainScreen extends StatelessWidget {
                     );
                   },
                 ),
-              )
+              ),
+              const SizedBox(height: 16),
+              //see more
+              Padding(
+                padding: const EdgeInsets.only(right: 32),
+                child: Row(
+                  children: [
+                    ImageIcon(
+                      AssetImage(Assets.icons.bluePen.path),
+                      color: SolidColors.seeMore,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(MyStrings.viewHotestBlog,
+                        style: textTheme.bodyLarge!
+                            .copyWith(color: SolidColors.seeMore))
+                  ],
+                ),
+              ),
             ],
           ),
         ),

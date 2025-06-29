@@ -40,11 +40,19 @@ class MyApp extends StatelessWidget {
           displaySmall: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           headlineMedium:
               TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
-          titleLarge: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-          bodyLarge: TextStyle(fontSize: 16.0, color: SolidColors.posterTitle),
+          // poster font labale
+          bodyLarge: TextStyle(
+              fontSize: 18.0,
+              color: SolidColors.posterTitle,
+              fontWeight: FontWeight.bold),
           bodyMedium:
               TextStyle(fontSize: 14.0, color: SolidColors.posterSubTitle),
           bodySmall: TextStyle(fontSize: 12.0),
+          // font labale blue color
+          titleMedium: TextStyle(
+              fontSize: 14.0,
+              color: SolidColors.seeMore,
+              fontWeight: FontWeight.w700),
         ),
       ),
       home: SplashScreen(),
