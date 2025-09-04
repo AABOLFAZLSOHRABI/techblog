@@ -9,8 +9,12 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
-    var size = MediaQuery.of(context).size;
+    var textTheme = Theme
+        .of(context)
+        .textTheme;
+    var size = MediaQuery
+        .of(context)
+        .size;
     double bodyMargin = size.width / 10;
     return SafeArea(
       child: Scaffold(
@@ -37,7 +41,7 @@ class MainScreen extends StatelessWidget {
                       height: size.height / 4.2,
                       decoration: BoxDecoration(
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(16)),
+                        const BorderRadius.all(Radius.circular(16)),
                         image: DecorationImage(
                           image: AssetImage(HomePagePosterMap["imageAsset"]),
                           fit: BoxFit.cover,
@@ -61,9 +65,7 @@ class MainScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                                HomePagePosterMap["writer"] +
-                                    " - " +
-                                    HomePagePosterMap["data"],
+                                "${HomePagePosterMap["writer"]} - ${HomePagePosterMap["data"]}",
                                 style: textTheme.bodyMedium),
                             Row(
                               children: [
@@ -143,6 +145,38 @@ class MainScreen extends StatelessWidget {
                         style: textTheme.bodyLarge!
                             .copyWith(color: SolidColors.seeMore))
                   ],
+                ),
+              ),
+
+              SizedBox(
+                height: size.height / 4.1,
+                child: ListView.builder(
+                  itemCount: blogList
+                      .getRange(0, 5)
+                      .length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            right: index == 0 ? bodyMargin : 15),
+                        child: Container(
+                            height: size.height / 5.3,
+                            width: size.width / 2.4,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(16)),
+                              image: DecorationImage(
+                                image: NetworkImage(blogList[index].imageUrl),
+                                fit: BoxFit.cover,
+                              ),
+
+                            )
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
