@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:techblog/my_colors.dart';
-import 'splash_screen.dart';
+import 'view/splash_screen.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           displaySmall: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           headlineMedium:
               TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
-          // poster font labale
+          // poster font labile
           bodyLarge: TextStyle(
               fontSize: 18.0,
               color: SolidColors.posterTitle,
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           bodyMedium:
               TextStyle(fontSize: 14.0, color: SolidColors.posterSubTitle),
           bodySmall: TextStyle(fontSize: 12.0),
-          // font labale blue color
+          // font labile blue color
           titleMedium: TextStyle(
               fontSize: 14.0,
               color: SolidColors.seeMore,
