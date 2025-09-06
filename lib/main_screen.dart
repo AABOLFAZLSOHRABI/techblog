@@ -14,22 +14,26 @@ class MainScreen extends StatelessWidget {
     double bodyMargin = size.width / 10;
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
+        //app bar
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: SolidColors.scaffoldBg,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Icon(Icons.menu, color: Colors.black),
+              Image.asset(Assets.images.logo.path, width: size.height / 13.6),
+              const Icon(Icons.search, color: Colors.black)
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Column(
               children: [
-                //app bar
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Icon(Icons.menu),
-                    Image.asset(Assets.images.logo.path,
-                        width: size.height / 13.6),
-                    const Icon(Icons.search)
-                  ],
-                ),
-                const SizedBox(width: 8),
                 // Poster
                 Stack(
                   children: [
@@ -152,10 +156,10 @@ class MainScreen extends StatelessWidget {
                     itemCount: blogList.getRange(0, 5).length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-          
                       //blog item
                       return Padding(
-                        padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                        padding: EdgeInsets.only(
+                            right: index == 0 ? bodyMargin : 15),
                         child: Column(
                           children: [
                             Padding(
@@ -170,14 +174,14 @@ class MainScreen extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(16)),
                                         image: DecorationImage(
-                                          image:
-                                              NetworkImage(blogList[index].imageUrl),
+                                          image: NetworkImage(
+                                              blogList[index].imageUrl),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       foregroundDecoration: const BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(16)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16)),
                                         gradient: LinearGradient(
                                           colors: GradientColors.blogPost,
                                           begin: Alignment.bottomCenter,
@@ -252,10 +256,10 @@ class MainScreen extends StatelessWidget {
                     itemCount: blogList.getRange(0, 5).length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-          
                       //blog item
                       return Padding(
-                        padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                        padding: EdgeInsets.only(
+                            right: index == 0 ? bodyMargin : 15),
                         child: Column(
                           children: [
                             Padding(
@@ -270,8 +274,8 @@ class MainScreen extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(16)),
                                         image: DecorationImage(
-                                          image:
-                                          NetworkImage(blogList[index].imageUrl),
+                                          image: NetworkImage(
+                                              blogList[index].imageUrl),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -294,8 +298,48 @@ class MainScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 64),
-          
               ],
+            ),
+          ),
+        ),
+        bottomNavigationBar:
+        Container(
+          height: size.height / 10,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: GradientColors.bottomNavBackground,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Container(
+              height: size.height / 8,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  gradient: LinearGradient(
+                    colors: GradientColors.bottomNav,
+                  )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: ImageIcon(AssetImage(Assets.icons.home.path)),
+                    color: Colors.white,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: ImageIcon(AssetImage(Assets.icons.write.path)),
+                    color: Colors.white,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: ImageIcon(AssetImage(Assets.icons.user.path)),
+                    color: Colors.white,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
