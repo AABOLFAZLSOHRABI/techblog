@@ -13,7 +13,7 @@ class MyStrings {
   static const String insertYourEmail = "لطفا ایمیلت رو وارد کن";
   static const String activateCode = "کد فعال سازی رو وارد کن ";
   static const String chooseCats = "دسته بندی هایی که دوست داری رو انتخاب کن";
-  static const String welcom = """به تک‌بلاگ خوش اومدی
+  static const String welcome = """به تک‌بلاگ خوش اومدی
 
 برای ارسال مطلب و پادکست باید حتما 
 ثبت نام کنی """;
@@ -46,6 +46,7 @@ www.sasansafari.com
 
   static String visit = 'بازدید';
   static String titleAppBarManageArticle = "مدیریت مقاله ها";
+  // ignore: non_constant_identifier_names
   static String ManagePodcast = "مدیریت پادکست ها";
   static String titleAppBarArticleContentEditor = "نوشتن/ویرایش مقاله ";
   static String hintArticleContentEditor = "میتونی مقاله‌تو اینجا بنویسی...";

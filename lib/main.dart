@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:techblog/my_colors.dart';
+import 'package:techblog/view/register_intro.dart';
 import 'view/splash_screen.dart';
 
 void main() {
@@ -38,8 +39,14 @@ class MyApp extends StatelessWidget {
           displayLarge: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
           displayMedium: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
           displaySmall: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          headlineLarge:
+              TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
           headlineMedium:
               TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+          headlineSmall:
+              TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+
+          titleLarge: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
           // poster font labile
           bodyLarge: TextStyle(
               fontSize: 18.0,
@@ -55,7 +62,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w700),
         ),
       ),
-      home: SplashScreen(),
+      home: RegisterIntro(),
     );
   }
 }

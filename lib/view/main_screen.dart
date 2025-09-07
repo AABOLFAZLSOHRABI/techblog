@@ -13,15 +13,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   var selectedPageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
     double bodyMargin = size.width / 10;
-    List<Widget> techMainScreenPage = [
-      HomeScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-      ProfileScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin)
-    ];
 
     return SafeArea(
       child: Scaffold(
@@ -41,14 +38,25 @@ class _MainScreenState extends State<MainScreen> {
         ),
         // body
         body: Center(
-          child: techMainScreenPage[selectedPageIndex]
-        ),
+            child: IndexedStack(
+          index: selectedPageIndex,
+          children: [
+            HomeScreen(
+                size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+            ProfileScreen(
+                size: size, textTheme: textTheme, bodyMargin: bodyMargin)
+          ],
+        )),
         // menuBar bottom
-        bottomNavigationBar: BottomNavBar(size: size, bodyMargin: bodyMargin, changeScreen: (int value) {
-          setState(() {
-            selectedPageIndex = value;
-          });
-        },),
+        bottomNavigationBar: BottomNavBar(
+          size: size,
+          bodyMargin: bodyMargin,
+          changeScreen: (int value) {
+            setState(() {
+              selectedPageIndex = value;
+            });
+          },
+        ),
       ),
     );
   }
@@ -60,13 +68,11 @@ class BottomNavBar extends StatelessWidget {
     required this.size,
     required this.bodyMargin,
     required this.changeScreen,
-
   });
 
   final Size size;
   final double bodyMargin;
   final Function(int) changeScreen;
-
 
   @override
   Widget build(BuildContext context) {
