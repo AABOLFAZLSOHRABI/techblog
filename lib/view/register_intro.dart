@@ -4,6 +4,7 @@ import 'package:techblog/my_colors.dart';
 import 'package:techblog/my_strings.dart';
 
 import '../gen/assets.gen.dart';
+import 'my_cats.dart';
 
 class RegisterIntro extends StatelessWidget {
   const RegisterIntro({super.key});
@@ -49,68 +50,69 @@ class RegisterIntro extends StatelessWidget {
     ));
   }
 
-  Future<dynamic> _buildEmailModalBotSheet(BuildContext context, Size size, TextTheme textTheme) {
+  Future<dynamic> _buildEmailModalBotSheet(
+      BuildContext context, Size size, TextTheme textTheme) {
     return showModalBottomSheet(
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: Container(
-                          height: size.height / 2,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                              )),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(MyStrings.insertYourEmail,
-                                    style: textTheme.titleMedium!.copyWith(
-                                        color: SolidColors.textTitle)),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
-                                  child: TextField(
-                                    onChanged: (value) {
-                                    },
-
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(color: SolidColors.textTitle),
-                                    decoration: const InputDecoration(
-                                      hintText: "techblog@support.com",
-                                      hintStyle: TextStyle(
-                                          color: SolidColors.hintText),
-
-                                    ),
-                                  ),
-                                ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      _activateCodeModalBotSheet(context, size, textTheme);
-                                    },
-                                    child: const Text("ادامه"))
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            height: size.height / 2,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                )),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(MyStrings.insertYourEmail,
+                      style: textTheme.titleMedium!
+                          .copyWith(color: SolidColors.textTitle)),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
+                    child: TextField(
+                      onChanged: (value) {},
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: SolidColors.textTitle),
+                      decoration: const InputDecoration(
+                        hintText: "techblog@support.com",
+                        hintStyle: TextStyle(color: SolidColors.hintText),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _activateCodeModalBotSheet(context, size, textTheme);
+                      },
+                      child: const Text("ادامه"))
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
-Future<dynamic> _activateCodeModalBotSheet(BuildContext context, Size size, TextTheme textTheme) {
+Future<dynamic> _activateCodeModalBotSheet(
+    BuildContext context, Size size, TextTheme textTheme) {
   return showModalBottomSheet(
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: context,
     builder: (context) {
       return Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           height: size.height / 2,
           decoration: const BoxDecoration(
@@ -124,27 +126,25 @@ Future<dynamic> _activateCodeModalBotSheet(BuildContext context, Size size, Text
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(MyStrings.activateCode,
-                    style: textTheme.titleMedium!.copyWith(
-                        color: SolidColors.textTitle)),
+                    style: textTheme.titleMedium!
+                        .copyWith(color: SolidColors.textTitle)),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
                   child: TextField(
-                    onChanged: (value) {
-
-                    },
-
+                    onChanged: (value) {},
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: SolidColors.textTitle),
                     decoration: const InputDecoration(
-                      hintText: "techblog@support.com",
-                      hintStyle: TextStyle(
-                          color: SolidColors.hintText),
-
+                      hintText: "******",
+                      hintStyle: TextStyle(color: SolidColors.hintText),
                     ),
                   ),
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) =>const MyCats()));
+                    },
                     child: const Text("ادامه"))
               ],
             ),

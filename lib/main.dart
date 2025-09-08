@@ -5,7 +5,7 @@ import 'package:techblog/my_colors.dart';
 import 'package:techblog/view/register_intro.dart';
 
 void main() {
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: SolidColors.statusBarColor,
     statusBarIconBrightness: Brightness.dark,
@@ -14,6 +14,7 @@ void main() {
   ));
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
