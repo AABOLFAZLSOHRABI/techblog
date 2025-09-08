@@ -37,16 +37,15 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
         // body
-        body: Center(
-            child: IndexedStack(
-          index: selectedPageIndex,
-          children: [
-            HomeScreen(
-                size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-            ProfileScreen(
-                size: size, textTheme: textTheme, bodyMargin: bodyMargin)
-          ],
-        )),
+        body: IndexedStack(
+                  index: selectedPageIndex,
+                  children: [
+        HomeScreen(
+            size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+        ProfileScreen(
+            size: size, textTheme: textTheme, bodyMargin: bodyMargin)
+                  ],
+                ),
         // menuBar bottom
         bottomNavigationBar: BottomNavBar(
           size: size,

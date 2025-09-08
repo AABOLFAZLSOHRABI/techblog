@@ -11,7 +11,7 @@ class RegisterIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    // var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
       body: Center(
@@ -36,30 +36,9 @@ class RegisterIntro extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: ElevatedButton(
-                  style: ButtonStyle(
-                    textStyle: WidgetStateProperty.resolveWith((states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return textTheme.headlineSmall;
-                      } else {
-                        return textTheme.titleLarge;
-                      }
-                    }),
-                    backgroundColor: WidgetStateProperty.resolveWith((states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return SolidColors.posterTitle;
-                      } else {
-                        return SolidColors.primaryColor;
-                      }
-                    }),
-                    foregroundColor: WidgetStateProperty.resolveWith((states) {
-                      if (states.contains(WidgetState.pressed)) {
-                        return SolidColors.primaryColor;
-                      } else {
-                        return SolidColors.posterTitle;
-                      }
-                    }),
-                  ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _buildEmailModalBotSheet(context, size, textTheme);
+                  },
                   child: Text(
                     MyStrings.letsGo,
                   )),
@@ -69,4 +48,109 @@ class RegisterIntro extends StatelessWidget {
       ),
     ));
   }
+
+  Future<dynamic> _buildEmailModalBotSheet(BuildContext context, Size size, TextTheme textTheme) {
+    return showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: Container(
+                          height: size.height / 2,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              )),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(MyStrings.insertYourEmail,
+                                    style: textTheme.titleMedium!.copyWith(
+                                        color: SolidColors.textTitle)),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
+                                  child: TextField(
+                                    onChanged: (value) {
+                                    },
+
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(color: SolidColors.textTitle),
+                                    decoration: const InputDecoration(
+                                      hintText: "techblog@support.com",
+                                      hintStyle: TextStyle(
+                                          color: SolidColors.hintText),
+
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      _activateCodeModalBotSheet(context, size, textTheme);
+                                    },
+                                    child: const Text("ادامه"))
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+  }
+}
+
+Future<dynamic> _activateCodeModalBotSheet(BuildContext context, Size size, TextTheme textTheme) {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) {
+      return Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          height: size.height / 2,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              )),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(MyStrings.activateCode,
+                    style: textTheme.titleMedium!.copyWith(
+                        color: SolidColors.textTitle)),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
+                  child: TextField(
+                    onChanged: (value) {
+
+                    },
+
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: SolidColors.textTitle),
+                    decoration: const InputDecoration(
+                      hintText: "techblog@support.com",
+                      hintStyle: TextStyle(
+                          color: SolidColors.hintText),
+
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("ادامه"))
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

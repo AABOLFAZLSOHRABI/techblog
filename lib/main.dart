@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:techblog/my_colors.dart';
 import 'package:techblog/view/register_intro.dart';
-import 'view/splash_screen.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -22,6 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Localizations Sample App',
@@ -34,17 +34,53 @@ class MyApp extends StatelessWidget {
         Locale('fa'), // farsi
       ],
       theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.0),
+          )),
+          textStyle: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return textTheme.headlineSmall;
+            } else {
+              return textTheme.titleLarge;
+            }
+          }),
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return SolidColors.posterTitle;
+            } else {
+              return SolidColors.primaryColor;
+            }
+          }),
+          foregroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return SolidColors.primaryColor;
+            } else {
+              return SolidColors.posterTitle;
+            }
+          }),
+        )),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(width: 2),
+          ),
+
+          filled: true,
+          fillColor: SolidColors.statusBarColor,
+        ),
         fontFamily: 'dana',
+        brightness: Brightness.light,
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
           displayMedium: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
           displaySmall: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          headlineLarge:
-              TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+          headlineLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
           headlineMedium:
               TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
-          headlineSmall:
-              TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+          headlineSmall: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
 
           titleLarge: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
           // poster font labile
@@ -62,7 +98,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w700),
         ),
       ),
-      home: RegisterIntro(),
+      home: const RegisterIntro(),
     );
   }
 }
