@@ -77,7 +77,7 @@ class HomePodcastList extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                   child: SizedBox(
                     height: size.height / 5.3,
                     width: size.width / 2.4,
@@ -169,7 +169,7 @@ class HomeBlogList extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                   child: SizedBox(
                     height: size.height / 5.3,
                     width: size.width / 2.4,

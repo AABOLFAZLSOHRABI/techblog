@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:techblog/my_strings.dart';
 import 'package:techblog/view/home_screen.dart';
 import 'package:techblog/view/profile_screen.dart';
+import 'package:techblog/view/register_intro.dart';
 import '../gen/assets.gen.dart';
 import '../my_colors.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key});
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -22,15 +25,52 @@ class _MainScreenState extends State<MainScreen> {
 
     return SafeArea(
       child: Scaffold(
+        key: widget._key,
         extendBody: true,
+        drawer: Drawer(
+          backgroundColor: SolidColors.surface,
+          child: ListView(
+            children: [
+              DrawerHeader(
+                  child: Image.asset(
+                Assets.images.logo.path,
+                scale: 3,
+              )),
+              ListTile(
+                title: Text(MyStrings.userProfile),
+                onTap: () {},
+              ),
+              const Divider(color: SolidColors.greyColor),
+              ListTile(
+                title: Text(MyStrings.aboutTec),
+                onTap: () {},
+              ),
+              const Divider(color: SolidColors.greyColor),
+              ListTile(
+                title: Text(MyStrings.shareTec),
+                onTap: () {},
+              ),
+              const Divider(color: SolidColors.greyColor),
+              ListTile(
+                title: Text(MyStrings.tecIngithub),
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
         //app bar
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           backgroundColor: SolidColors.scaffoldBg,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Icon(Icons.menu, color: Colors.black),
+              InkWell(
+                  onTap: () {
+                    widget._key.currentState!.openDrawer();
+                  },
+                  child: const Icon(Icons.menu, color: Colors.black)),
               Image.asset(Assets.images.logo.path, width: size.height / 13.6),
               const Icon(Icons.search, color: Colors.black)
             ],
@@ -38,14 +78,15 @@ class _MainScreenState extends State<MainScreen> {
         ),
         // body
         body: IndexedStack(
-                  index: selectedPageIndex,
-                  children: [
-        HomeScreen(
-            size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-        ProfileScreen(
-            size: size, textTheme: textTheme, bodyMargin: bodyMargin)
-                  ],
-                ),
+          index: selectedPageIndex,
+          children: [
+            HomeScreen(
+                size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+            ProfileScreen(
+                size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+            const RegisterIntro(),
+          ],
+        ),
         // menuBar bottom
         bottomNavigationBar: BottomNavBar(
           size: size,
@@ -102,7 +143,7 @@ class BottomNavBar extends StatelessWidget {
                 color: Colors.white,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => changeScreen(2),
                 icon: ImageIcon(AssetImage(Assets.icons.write.path)),
                 color: Colors.white,
               ),
