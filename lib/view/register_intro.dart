@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:techblog/my_colors.dart';
-import 'package:techblog/my_strings.dart';
+import 'package:techblog/component/my_colors.dart';
+import 'package:techblog/component/my_strings.dart';
 
 import '../gen/assets.gen.dart';
 import 'my_cats.dart';
