@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:techblog/component/my_strings.dart';
 import 'package:techblog/view/home_screen.dart';
 import 'package:techblog/view/profile_screen.dart';
 import 'package:techblog/view/register_intro.dart';
 import '../gen/assets.gen.dart';
 import '../component/my_colors.dart';
+import 'package:get/get.dart';
 
-class MainScreen extends StatefulWidget {
+final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
+class MainScreen extends StatelessWidget {
+  final RxInt selectedPageIndex = 0.obs;
+
   MainScreen({super.key});
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  var selectedPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return SafeArea(
       child: Scaffold(
-        key: widget._key,
+        key: _key,
         extendBody: true,
         drawer: Drawer(
           backgroundColor: SolidColors.surface,
@@ -48,7 +46,10 @@ class _MainScreenState extends State<MainScreen> {
               const Divider(color: SolidColors.greyColor),
               ListTile(
                 title: Text(MyStrings.shareTec),
-                onTap: () {},
+                onTap: () async {
+                  await SharePlus.instance
+                      .share(ShareParams(text: MyStrings.shareText));
+                },
               ),
               const Divider(color: SolidColors.greyColor),
               ListTile(
@@ -68,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               InkWell(
                   onTap: () {
-                    widget._key.currentState!.openDrawer();
+                    _key.currentState!.openDrawer();
                   },
                   child: const Icon(Icons.menu, color: Colors.black)),
               Image.asset(Assets.images.logo.path, width: size.height / 13.6),
@@ -77,24 +78,22 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
         // body
-        body: IndexedStack(
-          index: selectedPageIndex,
-          children: [
-            HomeScreen(
-                size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-            ProfileScreen(
-                size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-            const RegisterIntro(),
-          ],
-        ),
+        body: Obx(() => IndexedStack(
+              index: selectedPageIndex.value,
+              children: [
+                HomeScreen(
+                    size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                ProfileScreen(
+                    size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                const RegisterIntro(),
+              ],
+            )),
         // menuBar bottom
         bottomNavigationBar: BottomNavBar(
           size: size,
           bodyMargin: bodyMargin,
           changeScreen: (int value) {
-            setState(() {
-              selectedPageIndex = value;
-            });
+            selectedPageIndex.value = value;
           },
         ),
       ),
