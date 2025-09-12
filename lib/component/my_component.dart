@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../gen/assets.gen.dart';
 import '../models/fake_data.dart';
@@ -63,4 +64,9 @@ class MainTags extends StatelessWidget {
       ),
     );
   }
+}
+
+myLunchUrl(url)async{
+  var uri = Uri.parse(url);
+  await launchUrl(uri);
 }

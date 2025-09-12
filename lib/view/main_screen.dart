@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:techblog/component/my_component.dart';
 import 'package:techblog/component/my_strings.dart';
 import 'package:techblog/view/home_screen.dart';
 import 'package:techblog/view/profile_screen.dart';
@@ -54,7 +55,9 @@ class MainScreen extends StatelessWidget {
               const Divider(color: SolidColors.greyColor),
               ListTile(
                 title: Text(MyStrings.tecIngithub),
-                onTap: () {},
+                onTap: () {
+                  myLunchUrl(MyStrings.techBlogGithubUrl);
+                },
               ),
             ],
           ),
