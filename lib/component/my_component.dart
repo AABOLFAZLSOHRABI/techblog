@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:techblog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../gen/assets.gen.dart';
-import '../models/fake_data.dart';
 import 'my_colors.dart';
 
 class TechDivider extends StatelessWidget {
@@ -56,7 +58,7 @@ class MainTags extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              tagList[index].title,
+              Get.find<HomeScreenController>().tagsList[index].title!,
               style: textTheme.bodyMedium,
             ),
           ],
@@ -69,4 +71,18 @@ class MainTags extends StatelessWidget {
 myLunchUrl(url)async{
   var uri = Uri.parse(url);
   await launchUrl(uri);
+}
+
+class Loading extends StatelessWidget {
+  const Loading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SpinKitChasingDots(
+      color: SolidColors.primaryColor,
+      size: 32,
+    );
+  }
 }

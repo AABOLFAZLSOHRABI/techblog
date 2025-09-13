@@ -1,3 +1,5 @@
+import 'package:techblog/component/api_constant.dart';
+
 class AricleModel {
   String? id;
   String? title;
@@ -17,11 +19,12 @@ class AricleModel {
     required this.author,
     required this.view,
     required this.status,
-});
-  AricleModel.fromJson(Map<String, dynamic> element){
+  });
+
+  AricleModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
-    image = element['image'];
+    image = ApiConstant.baseDlUrl + element['image'];
     catId = element['cat_id'];
     catName = element['cat_name'];
     author = element['author'];
