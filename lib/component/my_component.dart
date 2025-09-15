@@ -86,3 +86,29 @@ class Loading extends StatelessWidget {
     );
   }
 }
+
+PreferredSize appBar(String title) {
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(60),
+    child: Padding(
+      padding: const EdgeInsets.all(12),
+      child: AppBar(
+        actions: [Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Center(child: Text(title)),
+        )],
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+                color: SolidColors.primaryColor.withBlue(100),
+                shape: BoxShape.circle),
+            child: const Center(child: Icon(Icons.arrow_back_ios,color: SolidColors.scaffoldBg,)),
+          ),
+        ),
+      ),
+    ),
+  );
+}

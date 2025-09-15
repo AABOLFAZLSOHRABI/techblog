@@ -9,7 +9,7 @@ import '../models/tags_model.dart';
 class HomeScreenController extends GetxController {
   late Rx<PosterModel> poster = PosterModel().obs;
   RxList<TagsModel> tagsList = RxList();
-  RxList<AricleModel> topVisitedList = RxList();
+  RxList<ArticleModel> topVisitedList = RxList();
   RxList<PodcastModel> topPodcasts = RxList();
   RxBool isLoading = false.obs;
 
@@ -29,7 +29,7 @@ class HomeScreenController extends GetxController {
         tagsList.add(TagsModel.fromJson(element));
       });
       response.data['top_visited'].forEach((element) {
-        topVisitedList.add(AricleModel.fromJson(element));
+        topVisitedList.add(ArticleModel.fromJson(element));
       });
       response.data['top_podcasts'].forEach((element) {
         topPodcasts.add(PodcastModel.fromJson(element));

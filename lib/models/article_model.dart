@@ -1,6 +1,6 @@
 import 'package:techblog/component/api_constant.dart';
 
-class AricleModel {
+class ArticleModel {
   String? id;
   String? title;
   String? image;
@@ -10,7 +10,7 @@ class AricleModel {
   String? view;
   String? status;
 
-  AricleModel({
+  ArticleModel({
     required this.id,
     required this.title,
     required this.image,
@@ -21,7 +21,7 @@ class AricleModel {
     required this.status,
   });
 
-  AricleModel.fromJson(Map<String, dynamic> element) {
+  ArticleModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
     image = ApiConstant.baseDlUrl + element['image'];
