@@ -12,7 +12,8 @@ class ArticleListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Get.theme.textTheme;
+    var textTheme = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
           appBar: appBar("مقالات جدید"),
@@ -22,7 +23,7 @@ class ArticleListScreen extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemCount: articleController.articleList.length,
               itemBuilder: (context, index) {
-                // بررسی null بودن آیتم لیست
+
                 final article = articleController.articleList[index];
 
                 return Padding(
@@ -30,10 +31,10 @@ class ArticleListScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(
-                        height: Get.height / 5.3,
-                        width: Get.width / 2.4,
+                        height: size.height / 5.3,
+                        width: size.width / 2.4,
                         child: CachedNetworkImage(
-                          imageUrl: article.image ?? '', // استفاده از ?? به جای !
+                          imageUrl: article.image ?? '',
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                                 borderRadius:
@@ -49,12 +50,12 @@ class ArticleListScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Expanded( // اضافه شده برای جلوگیری از overflow
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              article.title ?? 'بدون عنوان', // استفاده از ?? به جای !
+                              article.title ?? 'بدون عنوان',
                               style: textTheme.bodyLarge!
                                   .copyWith(color: SolidColors.textTitle),
                               overflow: TextOverflow.ellipsis,
@@ -63,11 +64,11 @@ class ArticleListScreen extends StatelessWidget {
                             const SizedBox(height: 8),
                             Row(
                               children: [
-                                Text(article.author ?? 'نامشخص', // استفاده از ?? به جای !
+                                Text(article.author ?? 'نامشخص',
                                     style: textTheme.bodyMedium!
                                         .copyWith(color: SolidColors.greyColor)),
                                 const SizedBox(width: 8),
-                                Text(article.view ?? '0', // استفاده از ?? به جای !
+                                Text(article.view ?? '0',
                                     style: textTheme.bodyMedium!
                                         .copyWith(color: SolidColors.greyColor)),
                               ],

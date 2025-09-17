@@ -68,7 +68,7 @@ class MainTags extends StatelessWidget {
   }
 }
 
-myLunchUrl(url)async{
+myLunchUrl(url) async {
   var uri = Uri.parse(url);
   await launchUrl(uri);
 }
@@ -93,10 +93,13 @@ PreferredSize appBar(String title) {
     child: Padding(
       padding: const EdgeInsets.all(12),
       child: AppBar(
-        actions: [Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: Center(child: Text(title)),
-        )],
+        backgroundColor: Colors.transparent,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Center(child: Text(title)),
+          )
+        ],
         leading: Padding(
           padding: const EdgeInsets.only(right: 16),
           child: Container(
@@ -105,7 +108,11 @@ PreferredSize appBar(String title) {
             decoration: BoxDecoration(
                 color: SolidColors.primaryColor.withBlue(100),
                 shape: BoxShape.circle),
-            child: const Center(child: Icon(Icons.arrow_back_ios,color: SolidColors.scaffoldBg,)),
+            child: const Center(
+                child: Icon(
+              Icons.keyboard_arrow_right,
+              color: SolidColors.scaffoldBg,
+            )),
           ),
         ),
       ),
