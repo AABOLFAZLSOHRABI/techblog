@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:techblog/controller/article_controller.dart';
+import 'package:techblog/controller/list_article_controller.dart';
 
 import '../component/my_colors.dart';
 
 class Test extends StatelessWidget {
   Test({super.key});
   final textTheme = Get.theme.textTheme;
-  final ArticleController articleController = Get.put(ArticleController());
+  final ListArticleController articleController = Get.put(ListArticleController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
