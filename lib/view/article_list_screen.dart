@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:techblog/view/single.dart';
 import '../component/my_colors.dart';
 import '../component/my_component.dart';
 import '../controller/list_article_controller.dart';
@@ -32,10 +31,7 @@ class ArticleListScreen extends StatelessWidget {
 
                   return GestureDetector(
                     onTap: () {
-                      singleArticleController.id.value = int.parse(
-                          listArticleController.articleList[index].id
-                              .toString());
-                      Get.to( const Single());
+                      singleArticleController.getArticleInfo(listArticleController.articleList[index].id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -45,7 +41,7 @@ class ArticleListScreen extends StatelessWidget {
                             height: size.height / 6,
                             width: size.width / 3,
                             child: CachedNetworkImage(
-                              imageUrl: article.image ?? '',
+                              imageUrl: (article.image ?? '').trim(),
                               imageBuilder: (context, imageProvider) =>
                                   Container(
                                 decoration: BoxDecoration(

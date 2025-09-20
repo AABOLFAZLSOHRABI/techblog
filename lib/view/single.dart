@@ -9,22 +9,11 @@ import 'package:techblog/view/article_list_screen.dart';
 import '../component/my_component.dart';
 import '../controller/single_article_controller.dart';
 
-class Single extends StatefulWidget {
-  const Single({super.key});
+class Single extends StatelessWidget {
+  Single({super.key});
 
-  @override
-  State<Single> createState() => _SingleState();
-}
-
-class _SingleState extends State<Single> {
-  SingleArticleController singleArticleController =
+  final SingleArticleController singleArticleController =
       Get.put(SingleArticleController());
-
-  @override
-  void initState() {
-    super.initState();
-    singleArticleController.getArticleInfo();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +33,7 @@ class _SingleState extends State<Single> {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                              singleArticleController.articleInfo.value.image!,
+                              singleArticleController.articleInfo.value.image!.trim(),
                           imageBuilder: (context, imageProvider) =>
                               Image(image: imageProvider),
                           placeholder: (context, url) => const Loading(),
@@ -162,8 +151,7 @@ class _SingleState extends State<Single> {
               var tagId = singleArticleController.tagList[index].id!;
               await Get.find<ListArticleController>()
                   .getArticleListWithTagsId(tagId);
-              appBar(singleArticleController.tagList[index].title!);
-              Get.to(ArticleListScreen());
+              Get.to(()=> ArticleListScreen());
             },
             child: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -194,92 +182,97 @@ class _SingleState extends State<Single> {
           scrollDirection: Axis.horizontal,
           itemBuilder: ((context, index) {
             //blog item
-            return Padding(
-              padding: EdgeInsets.only(right: index == 0 ? Get.width / 15 : 15),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: Get.height / 5.3,
-                      width: Get.width / 2.4,
-                      child: Stack(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: singleArticleController
-                                .relatedList[index].image!,
-                            imageBuilder: ((context, imageProvider) =>
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover),
-                                  ),
-                                  foregroundDecoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(16)),
-                                      gradient: LinearGradient(
-                                          begin: Alignment.bottomCenter,
-                                          end: Alignment.topCenter,
-                                          colors: GradientColors.blogPost)),
-                                )),
-                            placeholder: ((context, url) => const Loading()),
-                            errorWidget: ((context, url, error) => const Icon(
-                                  Icons.image_not_supported_outlined,
-                                  size: 50,
-                                  color: Colors.grey,
-                                )),
-                          ),
-                          Positioned(
-                            bottom: 8,
-                            left: 0,
-                            right: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  singleArticleController
-                                      .relatedList[index].author!,
-                                  style: textTheme.titleSmall!
-                                      .copyWith(color: SolidColors.posterTitle),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      singleArticleController
-                                          .relatedList[index].view!,
-                                      style: textTheme.titleSmall!.copyWith(
-                                          color: SolidColors.posterSubTitle),
+            return GestureDetector(
+              onTap: () {
+                singleArticleController.getArticleInfo(singleArticleController.relatedList[index].id);
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: index == 0 ? Get.width / 15 : 15),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: Get.height / 5.3,
+                        width: Get.width / 2.4,
+                        child: Stack(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: singleArticleController
+                                  .relatedList[index].image!.trim(),
+                              imageBuilder: ((context, imageProvider) =>
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(16)),
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover),
                                     ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    const Icon(
-                                      Icons.remove_red_eye_sharp,
-                                      color: Colors.white,
-                                      size: 16,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    foregroundDecoration: const BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(16)),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter,
+                                            colors: GradientColors.blogPost)),
+                                  )),
+                              placeholder: ((context, url) => const Loading()),
+                              errorWidget: ((context, url, error) => const Icon(
+                                    Icons.image_not_supported_outlined,
+                                    size: 50,
+                                    color: Colors.grey,
+                                  )),
                             ),
-                          )
-                        ],
+                            Positioned(
+                              bottom: 8,
+                              left: 0,
+                              right: 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    singleArticleController
+                                        .relatedList[index].author!,
+                                    style: textTheme.titleSmall!
+                                        .copyWith(color: SolidColors.posterTitle),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        singleArticleController
+                                            .relatedList[index].view!,
+                                        style: textTheme.titleSmall!.copyWith(
+                                            color: SolidColors.posterSubTitle),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      const Icon(
+                                        Icons.remove_red_eye_sharp,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                      width: Get.width / 2.4,
-                      child: Text(
-                        singleArticleController.relatedList[index].title!,
-                        overflow: TextOverflow.ellipsis,
-                        style: textTheme.titleLarge!
-                            .copyWith(color: SolidColors.textTitle),
-                        maxLines: 2,
-                      ))
-                ],
+                    SizedBox(
+                        width: Get.width / 2.4,
+                        child: Text(
+                          singleArticleController.relatedList[index].title!,
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.titleLarge!
+                              .copyWith(color: SolidColors.textTitle),
+                          maxLines: 2,
+                        ))
+                  ],
+                ),
               ),
             );
           })),

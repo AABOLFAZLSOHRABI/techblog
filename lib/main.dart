@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:techblog/component/my_colors.dart';
-import 'package:techblog/view/article_list_screen.dart';
+import 'package:techblog/view/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w700),
         ),
       ),
-      home: ArticleListScreen(),
+      home: const SplashScreen(),
     );
   }
 }
