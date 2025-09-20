@@ -108,10 +108,15 @@ PreferredSize appBar(String title) {
             decoration: BoxDecoration(
                 color: SolidColors.primaryColor.withBlue(100),
                 shape: BoxShape.circle),
-            child: const Center(
-                child: Icon(
-              Icons.keyboard_arrow_right,
-              color: SolidColors.scaffoldBg,
+            child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+              child: const Icon(
+                Icons.keyboard_arrow_right,
+                color: SolidColors.scaffoldBg,
+              ),
             )),
           ),
         ),
