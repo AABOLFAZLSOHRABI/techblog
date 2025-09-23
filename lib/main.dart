@@ -1,11 +1,16 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:techblog/component/my_colors.dart';
 import 'package:techblog/view/splash_screen.dart';
 
-void main() {
+import 'my_http_overrides.dart';
+
+Future<void> main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: SolidColors.statusBarColor,
@@ -13,6 +18,7 @@ void main() {
     systemNavigationBarColor: SolidColors.statusBarColor,
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

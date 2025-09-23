@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:techblog/component/my_colors.dart';
 import 'package:techblog/component/my_strings.dart';
-
-import '../gen/assets.gen.dart';
-import 'my_cats.dart';
+import 'package:techblog/controller/register_controller.dart';
+import '../../gen/assets.gen.dart';
 
 class RegisterIntro extends StatelessWidget {
-  const RegisterIntro({super.key});
+  RegisterIntro({super.key});
 
+  final RegisterController registerController = Get.put(RegisterController());
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -79,6 +80,7 @@ class RegisterIntro extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
                     child: TextField(
                       onChanged: (value) {},
+                      controller: registerController.emailTextEditingController,
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: SolidColors.textTitle),
                       decoration: const InputDecoration(
@@ -89,6 +91,7 @@ class RegisterIntro extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
+                        registerController.register();
                         Navigator.pop(context);
                         _activateCodeModalBotSheet(context, size, textTheme);
                       },
@@ -101,56 +104,57 @@ class RegisterIntro extends StatelessWidget {
       },
     );
   }
-}
-
-Future<dynamic> _activateCodeModalBotSheet(
-    BuildContext context, Size size, TextTheme textTheme) {
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    context: context,
-    builder: (context) {
-      return Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          height: size.height / 2,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              )),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(MyStrings.activateCode,
-                    style: textTheme.titleMedium!
-                        .copyWith(color: SolidColors.textTitle)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
-                  child: TextField(
-                    onChanged: (value) {},
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: SolidColors.textTitle),
-                    decoration: const InputDecoration(
-                      hintText: "******",
-                      hintStyle: TextStyle(color: SolidColors.hintText),
+  Future<dynamic> _activateCodeModalBotSheet(
+      BuildContext context, Size size, TextTheme textTheme) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            height: size.height / 2,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                )),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(MyStrings.activateCode,
+                      style: textTheme.titleMedium!
+                          .copyWith(color: SolidColors.textTitle)),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
+                    child: TextField(
+                      onChanged: (value) {},
+                      controller: registerController.activeCodeEditingController,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: SolidColors.textTitle),
+                      decoration: const InputDecoration(
+                        hintText: "******",
+                        hintStyle: TextStyle(color: SolidColors.hintText),
+                      ),
                     ),
                   ),
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>const MyCats()));
-                    },
-                    child: const Text("ادامه"))
-              ],
+                  ElevatedButton(
+                      onPressed: () {
+                        registerController.verify();
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        //     builder: (context) =>const MyCats()));
+                      },
+                      child: const Text("ادامه"))
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }

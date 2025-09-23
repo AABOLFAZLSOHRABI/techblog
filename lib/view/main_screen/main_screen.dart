@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:techblog/component/my_component.dart';
 import 'package:techblog/component/my_strings.dart';
+import 'package:techblog/controller/register_controller.dart';
 import 'package:techblog/view/main_screen/home_screen.dart';
 import 'package:techblog/view/main_screen/profile_screen.dart';
-import 'package:techblog/view/register_intro.dart';
+import 'package:techblog/view/register/register_intro.dart';
 import '../../component/my_colors.dart';
 import '../../gen/assets.gen.dart';
 import 'package:get/get.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+final RegisterController registerController =
+Get.put(RegisterController(), permanent: false);
 
 class MainScreen extends StatelessWidget {
   final RxInt selectedPageIndex = 0.obs;
@@ -88,7 +91,7 @@ class MainScreen extends StatelessWidget {
                     size: size, textTheme: textTheme, bodyMargin: bodyMargin),
                 ProfileScreen(
                     size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-                const RegisterIntro(),
+                RegisterIntro(),
               ],
             )),
         // menuBar bottom
@@ -145,7 +148,9 @@ class BottomNavBar extends StatelessWidget {
                 color: Colors.white,
               ),
               IconButton(
-                onPressed: () => changeScreen(2),
+                onPressed: () {
+                  registerController.toggleLogin();
+                },
                 icon: ImageIcon(AssetImage(Assets.icons.write.path)),
                 color: Colors.white,
               ),
