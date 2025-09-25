@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:techblog/component/my_colors.dart';
+import 'package:techblog/component/my_strings.dart';
 import 'package:techblog/component/storage_const.dart';
+import 'package:techblog/gen/assets.gen.dart';
 import 'package:techblog/view/main_screen/main_screen.dart';
 import 'package:techblog/view/register/register_intro.dart';
 import '../component/api_constant.dart';
@@ -72,7 +76,73 @@ class RegisterController extends GetxController {
     if (GetStorage().read(token) == null) {
       Get.to(() => RegisterIntro());
     } else {
-      debugPrint('post screen');
+      routeToWriteBottomShit();
     }
   }
+}
+
+routeToWriteBottomShit() {
+  Get.bottomSheet(Container(
+    height: Get.height / 3,
+    decoration: const BoxDecoration(
+        color: SolidColors.scaffoldBg,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        )),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(Assets.images.tcbot.path, height: 40),
+              const SizedBox(width: 16),
+              Text(MyStrings.shareKnowledge,
+                  style: const TextStyle(color: SolidColors.textTitle)),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(MyStrings.gigTech,
+              style: const TextStyle(color: SolidColors.textTitle)),
+          const SizedBox(height: 34),
+
+          //...
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              InkWell(
+                  onTap: () {
+                    debugPrint("write article");
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(Assets.icons.writeArticle.path, height: 32),
+                      const SizedBox(width: 8),
+                      Text(MyStrings.titleAppBarManageArticle,
+                          style: const TextStyle(color: SolidColors.textTitle)),
+                    ],
+                  ),
+                ),
+              InkWell(
+                onTap: () {
+                  debugPrint("write podcast");
+                },
+                child: Row(
+                  children: [
+                    Image.asset(Assets.icons.writePodcastIcon.path, height: 32),
+                    const SizedBox(width: 8),
+                    Text(MyStrings.ManagePodcast,
+                        style: const TextStyle(color: SolidColors.textTitle)),
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  ));
 }
