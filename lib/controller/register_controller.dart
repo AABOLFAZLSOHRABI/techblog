@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:techblog/component/storage_const.dart';
@@ -33,22 +33,45 @@ class RegisterController extends GetxController {
     };
     var response = await DioService().postMethod(map, ApiConstant.postRegister);
     debugPrint(response.data.toString());
-
-    if (response.data["response"] == 'verified') {
-      var box = GetStorage();
-      box.write(token, response.data["token"]);
-      box.write(userId, response.data["user_id"]);
-      debugPrint("read::: ${box.read(token)}");
-      debugPrint("read::: ${box.read(userId)}");
-      Get.to(()=>MainScreen());
-    }else{
-      debugPrint("error");
+    var status = response.data["response"];
+    switch (status) {
+      case "verified":
+        var box = GetStorage();
+        box.write(token, response.data["token"]);
+        box.write(userId, response.data["user_id"]);
+        debugPrint("read::: ${box.read(token)}");
+        debugPrint("read::: ${box.read(userId)}");
+        Get.offAll(() => MainScreen());
+        break;
+      case "incorrect_code":
+        Get.snackbar(
+          "خطا",
+          "کد فعالسازی اشتباه است",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          margin: const EdgeInsets.all(15),
+          colorText: Colors.white,
+          forwardAnimationCurve: Curves.easeOutBack,
+        );
+        break;
+      case "expired":
+        Get.snackbar(
+          "خطا",
+          "کد فعالسازی منقضی شده است",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          margin: const EdgeInsets.all(15),
+          colorText: Colors.white,
+          forwardAnimationCurve: Curves.easeOutBack,
+        );
+        break;
     }
   }
-  toggleLogin(){
-    if(GetStorage().read(token)==null){
-      Get.to(()=>RegisterIntro());
-    }else{
+
+  toggleLogin() {
+    if (GetStorage().read(token) == null) {
+      Get.to(() => RegisterIntro());
+    } else {
       debugPrint('post screen');
     }
   }

@@ -11,9 +11,7 @@ import '../../gen/assets.gen.dart';
 import 'package:get/get.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-final RegisterController registerController =
-Get.put(RegisterController(), permanent: false);
-
+var registerController = Get.find<RegisterController>();
 class MainScreen extends StatelessWidget {
   final RxInt selectedPageIndex = 0.obs;
 

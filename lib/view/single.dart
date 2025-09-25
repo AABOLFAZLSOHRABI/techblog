@@ -12,8 +12,8 @@ import '../controller/single_article_controller.dart';
 class Single extends StatelessWidget {
   Single({super.key});
 
-  final SingleArticleController singleArticleController =
-      Get.put(SingleArticleController());
+  final singleArticleController =
+      Get.find<SingleArticleController>();
 
   @override
   Widget build(BuildContext context) {

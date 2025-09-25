@@ -288,7 +288,7 @@ class HomeScreen extends StatelessWidget {
       height: 60,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: tagList.length,
+        itemCount: Get.find<HomeScreenController>().tagsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
