@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:techblog/component/my_strings.dart';
+import 'package:techblog/constant/my_strings.dart';
 
 import '../../gen/assets.gen.dart';
-import '../../component/my_colors.dart';
+import '../../constant/my_colors.dart';
 import '../../component/my_component.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,12 +10,10 @@ class ProfileScreen extends StatelessWidget {
     super.key,
     required this.size,
     required this.textTheme,
-    required this.bodyMargin,
   });
 
   final Size size;
   final TextTheme textTheme;
-  final double bodyMargin;
 
   @override
   Widget build(BuildContext context) {

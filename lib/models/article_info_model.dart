@@ -1,4 +1,4 @@
-import '../component/api_constant.dart';
+import '../constant/api_constant.dart';
 
 class ArticleInfoModel {
   String? id;
@@ -20,7 +20,7 @@ class ArticleInfoModel {
     id = info['id'];
     title = info['title'];
     content = info['content'];
-    image =ApiConstant.hostDlUrl + info['image'];
+    image = ApiConstant.hostDlUrl + info['image'];
     catId = info['cat_id'];
     catName = info['cat_name'];
     author = info['author'];

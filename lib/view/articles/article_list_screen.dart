@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../component/my_colors.dart';
+import '../../constant/my_colors.dart';
 import '../../component/my_component.dart';
 import '../../controller/article/list_article_controller.dart';
 import '../../controller/article/single_article_controller.dart';

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:techblog/component/api_constant.dart';
+import 'package:techblog/constant/api_constant.dart';
 import 'package:techblog/services/dio_service.dart';
 import 'package:techblog/view/articles/single.dart';
 import '../../models/article_info_model.dart';

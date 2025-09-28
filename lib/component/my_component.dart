@@ -5,7 +5,8 @@ import 'package:techblog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../gen/assets.gen.dart';
-import 'my_colors.dart';
+import '../view/articles/article_list_screen.dart';
+import '../constant/my_colors.dart';
 
 class TechDivider extends StatelessWidget {
   const TechDivider({
@@ -102,25 +103,56 @@ PreferredSize appBar(String title) {
         ],
         leading: Padding(
           padding: const EdgeInsets.only(right: 16),
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-                color: SolidColors.primaryColor.withBlue(100),
-                shape: BoxShape.circle),
-            child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-              child: const Icon(
-                Icons.keyboard_arrow_right,
-                color: SolidColors.scaffoldBg,
-              ),
-            )),
+          child: InkWell(
+            onTap: () => Get.back(),
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: SolidColors.primaryColor.withBlue(100),
+                  shape: BoxShape.circle),
+              child: const Center(
+                  child: Icon(
+                    Icons.keyboard_arrow_right,
+                    color: SolidColors.scaffoldBg,
+                  )),
+            ),
           ),
         ),
       ),
     ),
   );
+}
+
+class SeeMoreBlog extends StatelessWidget {
+  const SeeMoreBlog({
+    super.key,
+    required this.textTheme,
+    required this.title,
+  });
+
+  final TextTheme textTheme;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Get.to(ArticleListScreen()),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 32),
+        child: Row(
+          children: [
+            ImageIcon(
+              AssetImage(Assets.icons.bluePen.path),
+              color: SolidColors.seeMore,
+            ),
+            const SizedBox(width: 8),
+            Text(title,
+                style:
+                textTheme.bodyLarge!.copyWith(color: SolidColors.seeMore))
+          ],
+        ),
+      ),
+    );
+  }
 }

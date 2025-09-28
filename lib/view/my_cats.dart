@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techblog/gen/assets.gen.dart';
-import 'package:techblog/component/my_strings.dart';
+import 'package:techblog/constant/my_strings.dart';
 
+import '../component/dimens.dart';
 import '../models/fake_data.dart';
-import '../component/my_colors.dart';
+import '../constant/my_colors.dart';
 import '../component/my_component.dart';
-// import '../my_component.dart';
 
 class MyCats extends StatefulWidget {
   const MyCats({super.key});
@@ -20,15 +20,13 @@ class _MyCatsState extends State<MyCats> {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    var size = MediaQuery.of(context).size;
-    double bodyMargin = size.width / 10;
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Padding(
-            padding: EdgeInsets.only(left: bodyMargin, right: bodyMargin),
+            padding: EdgeInsets.only(left: Dimens.bodyMargin, right: Dimens.bodyMargin),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

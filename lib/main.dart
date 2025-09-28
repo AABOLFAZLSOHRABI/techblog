@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:techblog/component/my_colors.dart';
+import 'package:techblog/constant/my_colors.dart';
+import 'package:techblog/view/articles/manage_article.dart';
+import 'package:techblog/view/articles/single_manage_article.dart';
 import 'package:techblog/view/main_screen/main_screen.dart';
 import 'package:techblog/view/articles/single.dart';
 import 'package:techblog/view/splash_screen.dart';
@@ -46,13 +48,21 @@ class MyApp extends StatelessWidget {
       theme: lightTheme(textTheme),
       getPages: [
         GetPage(
-            name: routeMainScreen,
+            name: NamedRoute.routeMainScreen,
             page: () => MainScreen(),
             binding: RegisterBinding()),
         GetPage(
-            name: routeSingleArticle,
+            name: NamedRoute.routeSingleArticle,
             page: () => Single(),
             binding: ArticleBinding()),
+        GetPage(
+            name: NamedRoute.routeManageArticle,
+            page: () => ManageArticle(),
+            binding: ArticleManagerBinding()),
+        GetPage(
+            name: NamedRoute.routeSingleManageArticle,
+            page: () => SingleManageArticle(),
+              binding: ArticleManagerBinding()),
       ],
       home: const SplashScreen(),
     );
@@ -125,5 +135,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-const String routeMainScreen = '/MainScreen';
-const String routeSingleArticle = '/SingleArticle';
+class NamedRoute {
+  static String routeMainScreen = '/MainScreen';
+  static String routeSingleArticle = '/SingleArticle';
+  static String routeManageArticle = '/ManageArticle';
+  static String routeSingleManageArticle = '/SingleManageArticle';
+}

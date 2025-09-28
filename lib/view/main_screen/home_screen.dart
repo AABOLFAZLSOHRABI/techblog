@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:techblog/component/my_strings.dart';
+import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/home_screen_controller.dart';
-import 'package:techblog/view/articles/article_list_screen.dart';
+import '../../component/dimens.dart';
 import '../../controller/article/single_article_controller.dart';
 import '../../gen/assets.gen.dart';
 import '../../models/fake_data.dart';
-import '../../component/my_colors.dart';
+import '../../constant/my_colors.dart';
 import '../../component/my_component.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
     super.key,
     required this.size,
     required this.textTheme,
-    required this.bodyMargin,
   });
 
   final HomeScreenController homeScreenController =
@@ -25,7 +24,6 @@ class HomeScreen extends StatelessWidget {
 
   final Size size;
   final TextTheme textTheme;
-  final double bodyMargin;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                     tags(),
                     const SizedBox(height: 16),
                     //see more (view hots blog)
-                    HomeViewHotsBlogText(textTheme: textTheme),
+                    SeeMoreBlog(textTheme: textTheme,title: MyStrings.viewHotestBlog),
                     const SizedBox(height: 16),
                     //blog list
                     topVisited(),
@@ -65,7 +63,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget topVisited() {
     return SizedBox(
-      height: size.height / 4.1,
+      height: size.height / 3.8,
       child: Obx(
         () => ListView.builder(
           itemCount: homeScreenController.topVisitedList.length,
@@ -74,10 +72,11 @@ class HomeScreen extends StatelessWidget {
             //blog item
             return GestureDetector(
               onTap: () {
-                singleArticleController.getArticleInfo(homeScreenController.topVisitedList[index].id);
+                singleArticleController.getArticleInfo(
+                    homeScreenController.topVisitedList[index].id);
               },
               child: Padding(
-                padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                padding: EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
                 child: Column(
                   children: [
                     Padding(
@@ -100,7 +99,8 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 child: CachedNetworkImage(
                                   imageUrl: homeScreenController
-                                      .topVisitedList[index].image!.trim(),
+                                      .topVisitedList[index].image!
+                                      .trim(),
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                     decoration: BoxDecoration(
@@ -112,7 +112,8 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  placeholder: (context, url) => const Loading(),
+                                  placeholder: (context, url) =>
+                                      const Loading(),
                                   errorWidget: (context, url, error) =>
                                       const Icon(
                                     Icons.image_not_supported,
@@ -125,7 +126,8 @@ class HomeScreen extends StatelessWidget {
                               left: 0,
                               right: 0,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                       homeScreenController
@@ -172,14 +174,14 @@ class HomeScreen extends StatelessWidget {
 
   Widget topPodcasts() {
     return SizedBox(
-      height: size.height / 4.1,
+      height: size.height / 3.8,
       child: ListView.builder(
         itemCount: homeScreenController.topPodcasts.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           //blog item
           return Padding(
-            padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+            padding: EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
             child: Column(
               children: [
                 Padding(
@@ -189,7 +191,8 @@ class HomeScreen extends StatelessWidget {
                     height: size.height / 5.3,
                     width: size.width / 2.4,
                     child: CachedNetworkImage(
-                      imageUrl: homeScreenController.topPodcasts[index].poster!.trim(),
+                      imageUrl: homeScreenController.topPodcasts[index].poster!
+                          .trim(),
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                             borderRadius:
@@ -274,8 +277,15 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(homeScreenController.poster.value.title!,
-                  style: textTheme.bodyLarge),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                child: Text(
+                  homeScreenController.poster.value.title!,
+                  style: textTheme.bodyLarge,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         )
@@ -291,11 +301,10 @@ class HomeScreen extends StatelessWidget {
         itemCount: Get.find<HomeScreenController>().tagsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
-
-            },
+            onTap: () {},
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
+              padding:
+                  EdgeInsets.fromLTRB(0, 8, index == 0 ? Dimens.bodyMargin : 15, 8),
               child: MainTags(
                 textTheme: textTheme,
                 index: index,
@@ -330,36 +339,6 @@ class HomeViewPodcastText extends StatelessWidget {
           Text(MyStrings.viewHotestPodCasts,
               style: textTheme.bodyLarge!.copyWith(color: SolidColors.seeMore))
         ],
-      ),
-    );
-  }
-}
-
-class HomeViewHotsBlogText extends StatelessWidget {
-  const HomeViewHotsBlogText({
-    super.key,
-    required this.textTheme,
-  });
-
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.to(ArticleListScreen()),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 32),
-        child: Row(
-          children: [
-            ImageIcon(
-              AssetImage(Assets.icons.bluePen.path),
-              color: SolidColors.seeMore,
-            ),
-            const SizedBox(width: 8),
-            Text(MyStrings.viewHotestBlog,
-                style: textTheme.bodyLarge!.copyWith(color: SolidColors.seeMore))
-          ],
-        ),
       ),
     );
   }

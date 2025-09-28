@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:techblog/component/my_colors.dart';
-import 'package:techblog/component/my_strings.dart';
+import 'package:techblog/constant/my_colors.dart';
+import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/register_controller.dart';
 import '../../gen/assets.gen.dart';
 

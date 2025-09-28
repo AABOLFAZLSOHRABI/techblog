@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:techblog/component/my_component.dart';
-import 'package:techblog/component/my_strings.dart';
+import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/register_controller.dart';
 import 'package:techblog/view/main_screen/home_screen.dart';
 import 'package:techblog/view/main_screen/profile_screen.dart';
 import 'package:techblog/view/register/register_intro.dart';
-import '../../component/my_colors.dart';
+import '../../component/dimens.dart';
+import '../../constant/my_colors.dart';
 import '../../gen/assets.gen.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,6 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
-    double bodyMargin = size.width / 10;
 
     return SafeArea(
       child: Scaffold(
@@ -86,16 +86,15 @@ class MainScreen extends StatelessWidget {
               index: selectedPageIndex.value,
               children: [
                 HomeScreen(
-                    size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                    size: size, textTheme: textTheme),
                 ProfileScreen(
-                    size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                    size: size, textTheme: textTheme),
                 RegisterIntro(),
               ],
             )),
         // menuBar bottom
         bottomNavigationBar: BottomNavBar(
           size: size,
-          bodyMargin: bodyMargin,
           changeScreen: (int value) {
             selectedPageIndex.value = value;
           },
@@ -109,12 +108,10 @@ class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
     super.key,
     required this.size,
-    required this.bodyMargin,
     required this.changeScreen,
   });
 
   final Size size;
-  final double bodyMargin;
   final Function(int) changeScreen;
 
   @override
@@ -129,7 +126,7 @@ class BottomNavBar extends StatelessWidget {
       )),
       child: Padding(
         padding: EdgeInsets.only(
-            left: bodyMargin, right: bodyMargin, top: 8, bottom: 8),
+            left: Dimens.bodyMargin, right: Dimens.bodyMargin, top: 8, bottom: 8),
         child: Container(
           height: size.height / 8,
           decoration: const BoxDecoration(

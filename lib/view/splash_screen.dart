@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../gen/assets.gen.dart';
-import '../component/my_colors.dart';
+import '../constant/my_colors.dart';
 import '../main.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
-      Get.offAllNamed(routeMainScreen);
+      Get.offAllNamed(NamedRoute.routeMainScreen);
     });
   }
 

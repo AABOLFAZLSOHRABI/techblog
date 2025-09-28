@@ -1,4 +1,4 @@
-import '../component/api_constant.dart';
+import '../constant/api_constant.dart';
 
 class PodcastModel {
   String? id;
