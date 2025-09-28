@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -145,7 +144,7 @@ class SingleManageArticle extends StatelessWidget {
               const SizedBox(height: 30),
 
               /// edit text title article
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   getTitle();
                 },
@@ -174,17 +173,20 @@ class SingleManageArticle extends StatelessWidget {
               ),
 
               /// edit main text article
-              SeeMoreBlog(
-                  textTheme: textTheme,
-                  title: MyStrings.editMainTextArticle,
-                  bodyMargin: Dimens.halfBodyMargin),
+              GestureDetector(
+                // onTap: () => Get.to(() => ArticleContentEditor()),
+                child: SeeMoreBlog(
+                    textTheme: textTheme,
+                    title: MyStrings.editMainTextArticle,
+                    bodyMargin: Dimens.halfBodyMargin),
+              ),
 
               /// show main text article
               Padding(
                 padding: EdgeInsets.all(Dimens.halfBodyMargin),
                 child: Text(
                   manageArticleController.articleInfoModel.value.title ??
-                      MyStrings.editOrginalTextArticle,
+                      MyStrings.visit,
                   maxLines: 2,
                   style: textTheme.titleMedium!
                       .copyWith(color: SolidColors.textTitle),
