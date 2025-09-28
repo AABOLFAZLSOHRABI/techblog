@@ -9,6 +9,7 @@ import '../../gen/assets.gen.dart';
 import '../../models/fake_data.dart';
 import '../../constant/my_colors.dart';
 import '../../component/my_component.dart';
+import '../articles/article_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -42,7 +43,15 @@ class HomeScreen extends StatelessWidget {
                     tags(),
                     const SizedBox(height: 16),
                     //see more (view hots blog)
-                    SeeMoreBlog(textTheme: textTheme,title: MyStrings.viewHotestBlog),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => ArticleListScreen());
+                      },
+                      child: SeeMoreBlog(
+                          textTheme: textTheme,
+                          title: MyStrings.viewHotestBlog,
+                          bodyMargin: Dimens.halfBodyMargin),
+                    ),
                     const SizedBox(height: 16),
                     //blog list
                     topVisited(),
@@ -76,7 +85,8 @@ class HomeScreen extends StatelessWidget {
                     homeScreenController.topVisitedList[index].id);
               },
               child: Padding(
-                padding: EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
+                padding:
+                    EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
                 child: Column(
                   children: [
                     Padding(
@@ -181,7 +191,8 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           //blog item
           return Padding(
-            padding: EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
+            padding:
+                EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
             child: Column(
               children: [
                 Padding(
@@ -303,8 +314,8 @@ class HomeScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () {},
             child: Padding(
-              padding:
-                  EdgeInsets.fromLTRB(0, 8, index == 0 ? Dimens.bodyMargin : 15, 8),
+              padding: EdgeInsets.fromLTRB(
+                  0, 8, index == 0 ? Dimens.bodyMargin : 15, 8),
               child: MainTags(
                 textTheme: textTheme,
                 index: index,

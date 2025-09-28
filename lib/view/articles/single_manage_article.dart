@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:techblog/constant/my_colors.dart';
 import 'package:techblog/constant/my_strings.dart';
@@ -8,12 +9,39 @@ import 'package:techblog/controller/article/list_article_controller.dart';
 import 'package:techblog/controller/article/manage_article_controller.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:techblog/view/articles/article_list_screen.dart';
+import '../../component/dimens.dart';
 import '../../component/my_component.dart';
+import '../../controller/file_controller.dart';
+import '../../services/pick_file.dart';
 
 class SingleManageArticle extends StatelessWidget {
   SingleManageArticle({super.key});
 
   final manageArticleController = Get.find<ManageArticleController>();
+  final FilePickerController filePickerController =
+      Get.put(FilePickerController());
+
+  getTitle() {
+    Get.defaultDialog(
+      title: MyStrings.titleDialogSingleManageArticle,
+      content: TextField(
+        controller: manageArticleController.titleEditingController,
+        keyboardType: TextInputType.text,
+        style: const TextStyle(color: SolidColors.colorTitle),
+        decoration: InputDecoration(
+          hintText: MyStrings.hintTextSingleManageArticle,
+        ),
+      ),
+      onConfirm: () {},
+      radius: 8,
+      confirm: ElevatedButton(
+          onPressed: () {
+            manageArticleController.updateTitle();
+            Get.back();
+          },
+          child: Text(MyStrings.save)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +55,26 @@ class SingleManageArticle extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  CachedNetworkImage(
-                    imageUrl:
-                        manageArticleController.articleInfoModel.value.image ??
-                            '',
-                    imageBuilder: (context, imageProvider) =>
-                        Image(image: imageProvider),
-                    placeholder: (context, url) => const Loading(),
-                    errorWidget: (context, url, error) =>
-                        Image.asset(Assets.images.singlePlaceHolder.path),
+                  /// image cover post
+                  SizedBox(
+                    width: Get.width,
+                    child: filePickerController.file.value.size == 0
+                        ? CachedNetworkImage(
+                            imageUrl: manageArticleController
+                                    .articleInfoModel.value.image ??
+                                '',
+                            imageBuilder: (context, imageProvider) =>
+                                Image(image: imageProvider),
+                            placeholder: (context, url) => const Loading(),
+                            errorWidget: (context, url, error) => Image.asset(
+                                Assets.images.singlePlaceHolder.path),
+                          )
+                        : Image.file(
+                            File(filePickerController.file.value.path!),
+                            fit: BoxFit.cover),
                   ),
+
+                  /// Feature gradient image
                   Positioned(
                       top: 0,
                       right: 0,
@@ -66,30 +104,38 @@ class SingleManageArticle extends StatelessWidget {
                           ],
                         ),
                       )),
+
+                  /// Feature button add image
                   Positioned(
                     bottom: 0,
                     left: 0,
                     right: 0,
                     child: Center(
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: SolidColors.primaryColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12))),
-                        height: 30,
-                        width: Get.width / 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              MyStrings.selectImage,
-                              style: textTheme.titleSmall!
-                                  .copyWith(color: SolidColors.posterTitle),
-                            ),
-                            const SizedBox(width: 8),
-                            const Icon(Icons.add, color: SolidColors.lightIcon),
-                          ],
+                      child: InkWell(
+                        onTap: () async {
+                          await pickFile();
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: SolidColors.primaryColor,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12))),
+                          height: 30,
+                          width: Get.width / 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                MyStrings.selectImage,
+                                style: textTheme.titleSmall!
+                                    .copyWith(color: SolidColors.posterTitle),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(Icons.add,
+                                  color: SolidColors.lightIcon),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -97,41 +143,60 @@ class SingleManageArticle extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 30),
-              SeeMoreBlog(textTheme: textTheme,title: MyStrings.editTitleArticle),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  manageArticleController.articleInfoModel.value.title ??
-                      MyStrings.titltArrticle,
-                  maxLines: 2,
-                  style: textTheme.titleLarge,
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.end,
-                ),
+
+              /// edit text title article
+              InkWell(
+                onTap: () {
+                  getTitle();
+                },
+                child: SeeMoreBlog(
+                    textTheme: textTheme,
+                    title: MyStrings.editTitleArticle,
+                    bodyMargin: Dimens.halfBodyMargin),
               ),
-              const SizedBox(height: 30),
+
+              /// show text title article
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(Dimens.halfBodyMargin),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image(
-                        image: AssetImage(Assets.images.profileAvatar.path),
-                        height: 50),
-                    const SizedBox(width: 16),
+                    Text(
+                      manageArticleController.articleInfoModel.value.title ??
+                          MyStrings.titltArrticle,
+                      maxLines: 2,
+                      textAlign: TextAlign.end,
+                      style: textTheme.titleMedium!
+                          .copyWith(color: SolidColors.textTitle),
+                    ),
                   ],
                 ),
               ),
+
+              /// edit main text article
+              SeeMoreBlog(
+                  textTheme: textTheme,
+                  title: MyStrings.editMainTextArticle,
+                  bodyMargin: Dimens.halfBodyMargin),
+
+              /// show main text article
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: HtmlWidget(
-                  manageArticleController.articleInfoModel.value.content ??
+                padding: EdgeInsets.all(Dimens.halfBodyMargin),
+                child: Text(
+                  manageArticleController.articleInfoModel.value.title ??
                       MyStrings.editOrginalTextArticle,
-                  textStyle: const TextStyle(color: Colors.black),
-                  enableCaching: true,
-                  onLoadingBuilder: (context, element, loadingProgress) =>
-                      const Loading(),
+                  maxLines: 2,
+                  style: textTheme.titleMedium!
+                      .copyWith(color: SolidColors.textTitle),
                 ),
               ),
+
+              /// edit tags category
+              SeeMoreBlog(
+                  textTheme: textTheme,
+                  title: MyStrings.selectCategory,
+                  bodyMargin: Dimens.halfBodyMargin),
+
               const SizedBox(height: 25),
               const Padding(
                 padding: EdgeInsets.all(8.0),

@@ -3,9 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:techblog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../gen/assets.gen.dart';
-import '../view/articles/article_list_screen.dart';
 import '../constant/my_colors.dart';
 
 class TechDivider extends StatelessWidget {
@@ -127,31 +125,33 @@ PreferredSize appBar(String title) {
 class SeeMoreBlog extends StatelessWidget {
   const SeeMoreBlog({
     super.key,
+    required this.bodyMargin,
     required this.textTheme,
     required this.title,
   });
 
+  final double bodyMargin;
   final TextTheme textTheme;
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.to(ArticleListScreen()),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 32),
-        child: Row(
-          children: [
-            ImageIcon(
-              AssetImage(Assets.icons.bluePen.path),
-              color: SolidColors.seeMore,
-            ),
-            const SizedBox(width: 8),
-            Text(title,
-                style:
-                textTheme.bodyLarge!.copyWith(color: SolidColors.seeMore))
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.only(right: bodyMargin, bottom: 8),
+      child: Row(
+        children: [
+          ImageIcon(
+            Image.asset(Assets.icons.bluePen.path).image,
+            color: SolidColors.seeMore,
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            title,
+            style: textTheme.bodyLarge!.copyWith(color: SolidColors.seeMore),
+          )
+        ],
       ),
     );
   }
