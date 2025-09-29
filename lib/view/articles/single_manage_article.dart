@@ -2,16 +2,17 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:techblog/constant/my_colors.dart';
 import 'package:techblog/constant/my_strings.dart';
-import 'package:techblog/controller/article/list_article_controller.dart';
 import 'package:techblog/controller/article/manage_article_controller.dart';
+import 'package:techblog/controller/home_screen_controller.dart';
 import 'package:techblog/gen/assets.gen.dart';
-import 'package:techblog/view/articles/article_list_screen.dart';
 import '../../component/dimens.dart';
 import '../../component/my_component.dart';
 import '../../controller/file_controller.dart';
 import '../../services/pick_file.dart';
+import 'article_content_editor.dart';
 
 class SingleManageArticle extends StatelessWidget {
   SingleManageArticle({super.key});
@@ -174,7 +175,7 @@ class SingleManageArticle extends StatelessWidget {
 
               /// edit main text article
               GestureDetector(
-                // onTap: () => Get.to(() => ArticleContentEditor()),
+                onTap: () => Get.to(() => ArticleContentEditor()),
                 child: SeeMoreBlog(
                     textTheme: textTheme,
                     title: MyStrings.editMainTextArticle,
@@ -184,25 +185,47 @@ class SingleManageArticle extends StatelessWidget {
               /// show main text article
               Padding(
                 padding: EdgeInsets.all(Dimens.halfBodyMargin),
-                child: Text(
-                  manageArticleController.articleInfoModel.value.title ??
-                      MyStrings.visit,
-                  maxLines: 2,
-                  style: textTheme.titleMedium!
+                child: HtmlWidget(
+                  manageArticleController.articleInfoModel.value.content ??
+                      MyStrings.editOrginalTextArticle,
+                  textStyle: textTheme.titleMedium!
                       .copyWith(color: SolidColors.textTitle),
                 ),
               ),
 
               /// edit tags category
-              SeeMoreBlog(
-                  textTheme: textTheme,
-                  title: MyStrings.selectCategory,
-                  bodyMargin: Dimens.halfBodyMargin),
-
+              GestureDetector(
+                onTap: () {
+                  choosCatsBottomSheet(textTheme);
+                },
+                child: SeeMoreBlog(
+                    textTheme: textTheme,
+                    title: MyStrings.selectCategory,
+                    bodyMargin: Dimens.halfBodyMargin),
+              ),
+              /// show main cat article
+              Padding(
+                padding: EdgeInsets.all(Dimens.halfBodyMargin),
+                child: Text(
+                  manageArticleController.articleInfoModel.value.catName ??
+                      MyStrings.noCategorySelected,
+                  maxLines: 2,
+                  style: textTheme.titleMedium!
+                      .copyWith(color: SolidColors.textTitle),
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () async =>
+                      await manageArticleController.storeArticle(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(manageArticleController.loading.value
+                        ? MyStrings.wait
+                        : MyStrings.sendText),
+                  )),
               const SizedBox(height: 25),
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                // child: tags(textTheme),
               ),
             ],
           ),
@@ -211,19 +234,21 @@ class SingleManageArticle extends StatelessWidget {
     ));
   }
 
-  SizedBox tags(TextTheme textTheme) {
+  Widget cats(TextTheme textTheme) {
+    var homeScreenController = Get.find<HomeScreenController>();
     return SizedBox(
-      height: 30,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: manageArticleController.tagList.length,
+      height: Get.height / 1.8,
+      child: GridView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: homeScreenController.tagsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () async {
-              var tagId = manageArticleController.tagList[index].id!;
-              await Get.find<ListArticleController>()
-                  .getArticleListWithTagsId(tagId);
-              Get.to(() => ArticleListScreen());
+              manageArticleController.articleInfoModel.update((val) {
+                val?.catId= homeScreenController.tagsList[index].id!;
+                val?.catName= homeScreenController.tagsList[index].title!;
+              },);
+              Get.back();
             },
             child: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -231,18 +256,47 @@ class SingleManageArticle extends StatelessWidget {
                   height: 30,
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(24)),
-                      color: SolidColors.greyColor),
+                      color: SolidColors.primaryColor),
                   child: Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        manageArticleController.tagList[index].title!,
-                        style: textTheme.titleSmall!
-                            .copyWith(color: SolidColors.hashTag),
+                      child: Center(
+                        child: Text(
+                          homeScreenController.tagsList[index].title!,
+                          style: textTheme.titleSmall!
+                              .copyWith(color: SolidColors.hashTag),
+                        ),
                       )),
                 )),
           );
         },
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,crossAxisSpacing: 5,mainAxisSpacing: 5),
       ),
+    );
+  }
+
+  choosCatsBottomSheet(TextTheme textTheme) {
+    Get.bottomSheet(
+        isScrollControlled: true,
+        persistent: true,
+        Container(
+      height: Get.height / 1.5,
+      decoration: const BoxDecoration(
+        color: SolidColors.lightBackColor,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 24, 8, 8),
+        child: Column(
+          children: [
+            Text(MyStrings.selectCategory,style: textTheme.titleLarge,),
+            const SizedBox(height: 8),
+            cats(textTheme),
+          ],
+        ),
+      ),
+    )
     );
   }
 }
