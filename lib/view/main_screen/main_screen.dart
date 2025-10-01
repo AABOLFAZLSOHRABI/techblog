@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:techblog/component/decorations.dart';
 import 'package:techblog/component/my_component.dart';
 import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/register_controller.dart';
@@ -129,11 +130,7 @@ class BottomNavBar extends StatelessWidget {
             left: Dimens.bodyMargin, right: Dimens.bodyMargin, top: 8, bottom: 8),
         child: Container(
           height: size.height / 8,
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(18)),
-              gradient: LinearGradient(
-                colors: GradientColors.bottomNav,
-              )),
+          decoration: MyDecorations.mainGradient,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

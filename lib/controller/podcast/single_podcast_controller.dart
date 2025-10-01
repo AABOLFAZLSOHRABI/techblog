@@ -1,0 +1,29 @@
+import 'package:get/get.dart';
+import 'package:techblog/constant/api_constant.dart';
+import 'package:techblog/models/podcast_file_model.dart';
+import 'package:techblog/services/dio_service.dart';
+
+class  SinglePodcastController extends GetxController{
+  var id;
+  SinglePodcastController({this.id});
+
+  RxBool loading = false.obs;
+  RxList<PodcastFileModel> podcastFileList = RxList();
+  @override
+  void onInit() {
+    super.onInit();
+    getPodcastFiles();
+  }
+
+  getPodcastFiles()async{
+    loading.value = true;
+    var response = await DioService().getMethod(ApiUrlConstant.podcastFiles+id);
+    if(response.statuCode == 200){
+      for(var element in response.data["files"]){
+        podcastFileList.add(PodcastFileModel.fromJson(element));
+      }
+      loading.value = false;
+    }
+  }
+
+}

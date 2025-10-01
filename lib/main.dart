@@ -9,6 +9,7 @@ import 'package:techblog/view/articles/manage_article.dart';
 import 'package:techblog/view/articles/single_manage_article.dart';
 import 'package:techblog/view/main_screen/main_screen.dart';
 import 'package:techblog/view/articles/single.dart';
+import 'package:techblog/view/podcast/single_podcast.dart';
 import 'package:techblog/view/splash_screen.dart';
 import 'binding.dart';
 import 'my_http_overrides.dart';
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
             name: NamedRoute.routeSingleManageArticle,
             page: () => SingleManageArticle(),
               binding: ArticleManagerBinding()),
+        GetPage(
+            name: NamedRoute.routeSinglePodcast,
+            page: () => const SinglePodcast()),
       ],
       home: const SplashScreen(),
     );
@@ -136,8 +140,10 @@ class MyApp extends StatelessWidget {
 }
 
 class NamedRoute {
+  NamedRoute._();
   static String routeMainScreen = '/MainScreen';
   static String routeSingleArticle = '/SingleArticle';
   static String routeManageArticle = '/ManageArticle';
   static String routeSingleManageArticle = '/SingleManageArticle';
+  static String routeSinglePodcast = '/SinglePodcast';
 }

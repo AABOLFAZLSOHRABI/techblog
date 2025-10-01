@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class SolidColors {
+  SolidColors._();
   static const Color posterSubTitle = Color.fromARGB(200, 255, 255, 255);
   static const Color posterTitle = Color.fromARGB(255, 255, 255, 255);
   static const Color primaryColor = Color.fromARGB(255, 68, 4, 87);

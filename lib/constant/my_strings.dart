@@ -1,4 +1,5 @@
 class MyStrings {
+  MyStrings._();
   static const String techBlogGithubUrl =
       "https://github.com/sasansafari/techblog";
   static const String viewHotestBlog = "مشاهده داغ ترین نوشته ها ";

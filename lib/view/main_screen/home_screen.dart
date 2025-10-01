@@ -6,6 +6,7 @@ import 'package:techblog/controller/home_screen_controller.dart';
 import '../../component/dimens.dart';
 import '../../controller/article/single_article_controller.dart';
 import '../../gen/assets.gen.dart';
+import '../../main.dart';
 import '../../models/fake_data.dart';
 import '../../constant/my_colors.dart';
 import '../../component/my_component.dart';
@@ -189,44 +190,50 @@ class HomeScreen extends StatelessWidget {
         itemCount: homeScreenController.topPodcasts.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          //blog item
-          return Padding(
-            padding:
-                EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 4.0, horizontal: 8.0),
-                  child: SizedBox(
-                    height: size.height / 5.3,
-                    width: size.width / 2.4,
-                    child: CachedNetworkImage(
-                      imageUrl: homeScreenController.topPodcasts[index].poster!
-                          .trim(),
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover)),
+          /// podcast item
+          return GestureDetector(
+            onTap: () {
+              Get.toNamed(NamedRoute.routeSinglePodcast,
+                  arguments: homeScreenController.topPodcasts[index]);
+            },
+            child: Padding(
+              padding:
+                  EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8.0),
+                    child: SizedBox(
+                      height: size.height / 5.3,
+                      width: size.width / 2.4,
+                      child: CachedNetworkImage(
+                        imageUrl: homeScreenController.topPodcasts[index].poster!
+                            .trim(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              image: DecorationImage(
+                                  image: imageProvider, fit: BoxFit.cover)),
+                        ),
+                        placeholder: (context, url) => const Loading(),
+                        errorWidget: (context, url, error) => const Icon(
+                            Icons.image_not_supported,
+                            size: 50,
+                            color: SolidColors.greyColor),
                       ),
-                      placeholder: (context, url) => const Loading(),
-                      errorWidget: (context, url, error) => const Icon(
-                          Icons.image_not_supported,
-                          size: 50,
-                          color: SolidColors.greyColor),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: size.width / 2.4,
-                  child: Text(homeScreenController.topPodcasts[index].author!,
-                      style: textTheme.bodySmall,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis),
-                ),
-              ],
+                  SizedBox(
+                    width: size.width / 2.4,
+                    child: Text(homeScreenController.topPodcasts[index].author!,
+                        style: textTheme.bodySmall,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
+                  ),
+                ],
+              ),
             ),
           );
         },
