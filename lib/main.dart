@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
               binding: ArticleManagerBinding()),
         GetPage(
             name: NamedRoute.routeSinglePodcast,
-            page: () => const SinglePodcast()),
+            page: () => SinglePodcast()),
       ],
       home: const SplashScreen(),
     );

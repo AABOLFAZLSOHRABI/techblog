@@ -5,21 +5,17 @@ import 'package:techblog/component/decorations.dart';
 import 'package:techblog/component/dimens.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:techblog/controller/podcast/single_podcast_controller.dart';
-import 'package:techblog/models/podcast_file_model.dart';
 import 'package:techblog/models/podcast_model.dart';
 import '../../component/my_component.dart';
 import '../../constant/my_colors.dart';
-import '../../constant/my_strings.dart';
 import '../../gen/assets.gen.dart';
-import '../../models/podcast_model.dart';
 
 class SinglePodcast extends StatelessWidget {
-  SinglePodcast({super.key});
-  late SinglePodcastController singlePodcastController;
-  late PodcastModel podcastModel;
-  PodcastModel(){
+  late final SinglePodcastController controller;
+  late final PodcastModel podcastModel;
+  SinglePodcast({super.key}){
     podcastModel = Get.arguments;
-    singlePodcastController = Get.put(SinglePodcastController(id: podcastModel.id));
+    controller = Get.put(SinglePodcastController(id: podcastModel.id));
   }
   @override
   Widget build(BuildContext context) {
@@ -36,13 +32,17 @@ class SinglePodcast extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: "",
-                      imageBuilder: (context, imageProvider) =>
-                          Image(image: imageProvider),
-                      placeholder: (context, url) => const Loading(),
-                      errorWidget: (context, url, error) =>
-                          Image.asset(Assets.images.singlePlaceHolder.path),
+                    SizedBox(
+                      height: Get.height / 3,
+                      width: Get.width,
+                      child: CachedNetworkImage(
+                        imageUrl: podcastModel.poster!,
+                        imageBuilder: (context, imageProvider) =>
+                            Image(image: imageProvider, fit: BoxFit.fill),
+                        placeholder: (context, url) => const Loading(),
+                        errorWidget: (context, url, error) =>
+                            Image.asset(Assets.images.singlePlaceHolder.path),
+                      ),
                     ),
                     Positioned(
                         top: 0,
@@ -92,7 +92,7 @@ class SinglePodcast extends StatelessWidget {
                   child: Align(
                     alignment: AlignmentGeometry.centerRight,
                     child: Text(
-                      "عنوان پادکست",
+                      podcastModel.title!,
                       maxLines: 2,
                       style: textTheme.titleLarge,
                       textDirection: TextDirection.rtl,
@@ -108,7 +108,7 @@ class SinglePodcast extends StatelessWidget {
                           image: AssetImage(Assets.images.profileAvatar.path),
                           height: 50),
                       const SizedBox(width: 16),
-                      Text("نویسنده : ...",
+                      Text(podcastModel.author!,
                           style: textTheme.titleMedium!
                               .copyWith(color: SolidColors.textTitle)),
                       const SizedBox(width: 16),
@@ -117,38 +117,45 @@ class SinglePodcast extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: 5,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                ImageIcon(
-                                    Image.asset(Assets.icons.microphon.path)
-                                        .image,
-                                    color: SolidColors.seeMore),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  MyStrings.frilance,
+                  child: Obx(
+                    () =>  ListView.builder(
+                      itemCount: controller.podcastFileList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  ImageIcon(
+                                      Image.asset(Assets.icons.microphon.path)
+                                          .image,
+                                      color: SolidColors.seeMore),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  SizedBox(
+                                    width: Get.width / 1.5,
+                                    child: Text(
+                                      controller
+                                          .podcastFileList[index].title!,
+                                      style: textTheme.titleMedium!
+                                          .copyWith(color: SolidColors.textTitle),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                  "${controller.podcastFileList[index].length!}:00",
                                   style: textTheme.titleMedium!
-                                      .copyWith(color: SolidColors.textTitle),
-                                ),
-                              ],
-                            ),
-                            Text("22:00",
-                                style: textTheme.titleMedium!
-                                    .copyWith(color: SolidColors.textTitle)),
-                          ],
-                        ),
-                      );
-                    },
+                                      .copyWith(color: SolidColors.textTitle)),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -172,14 +179,27 @@ class SinglePodcast extends StatelessWidget {
                     backgroundColor: Colors.white,
                     progressColor: Colors.orange,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(Icons.skip_next_sharp,color: Colors.white),
-                      Icon(Icons.play_circle_fill,color: Colors.white,size: 48),
-                      Icon(Icons.skip_previous,color: Colors.white),
-                      SizedBox(width: 16),
-                      Icon(Icons.replay,color: Colors.white),
+                      const Icon(Icons.skip_next_sharp, color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          controller.playState.value = controller.player.playing;
+                          controller.playState.value?
+                          controller.player.pause():
+                          controller.player.play();
+                        },
+                          child: Obx(
+                            () => Icon(
+                                controller.playState.value?
+                                Icons.play_circle_fill:
+                                Icons.pause_circle_filled,
+                                color: Colors.white, size: 48),
+                          )),
+                      const Icon(Icons.skip_previous, color: Colors.white),
+                      const SizedBox(width: 16),
+                      const Icon(Icons.replay, color: Colors.white),
                     ],
                   )
                 ],

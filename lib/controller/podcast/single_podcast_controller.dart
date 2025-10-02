@@ -2,28 +2,69 @@ import 'package:get/get.dart';
 import 'package:techblog/constant/api_constant.dart';
 import 'package:techblog/models/podcast_file_model.dart';
 import 'package:techblog/services/dio_service.dart';
+import 'package:just_audio/just_audio.dart';
 
-class  SinglePodcastController extends GetxController{
+class SinglePodcastController extends GetxController {
   var id;
-  SinglePodcastController({this.id});
-
   RxBool loading = false.obs;
   RxList<PodcastFileModel> podcastFileList = RxList();
+  final player = AudioPlayer();
+  RxBool playState = false.obs;
+  RxBool isLoopAll = false.obs;
+  RxInt currentFileIndex = 0.obs;
+  Rx<Duration> progressState = Duration.zero.obs;
+  Rx<Duration> totalDuration = Duration.zero.obs;
+  Rx<Duration> bufferState = Duration.zero.obs;
+
+  SinglePodcastController({this.id});
+
   @override
-  void onInit() {
+  onInit() async {
     super.onInit();
-    getPodcastFiles();
+    await getPodcastFiles();
+
+    player.playerStateStream.listen((state) {
+      playState.value = state.playing;
+    });
+    player.positionStream.listen((pos) {
+      progressState.value = pos;
+    });
+    player.bufferedPositionStream.listen((bufferedPos) {
+      bufferState.value = bufferedPos;
+    });
+    player.durationStream.listen((dur) {
+      totalDuration.value = dur ?? Duration.zero;
+    });
   }
 
-  getPodcastFiles()async{
+  Future<void> getPodcastFiles() async {
     loading.value = true;
-    var response = await DioService().getMethod(ApiUrlConstant.podcastFiles+id);
-    if(response.statuCode == 200){
-      for(var element in response.data["files"]){
-        podcastFileList.add(PodcastFileModel.fromJson(element));
+    var response = await DioService().getMethod(ApiUrlConstant.podcastFiles + id);
+    if (response.statusCode == 200) {
+      List<AudioSource> sources = [];
+      for (var element in response.data["files"]) {
+        var model = PodcastFileModel.fromJson(element);
+        podcastFileList.add(model);
+        sources.add(AudioSource.uri(Uri.parse(model.file!)));
       }
-      loading.value = false;
+      await player.setAudioSources(sources, initialIndex: 0, initialPosition: Duration.zero);
+    }
+    loading.value = false;
+  }
+
+  void setLoopMode() {
+    if (isLoopAll.value) {
+      isLoopAll.value = false;
+      player.setLoopMode(LoopMode.off);
+    } else {
+      isLoopAll.value = true;
+      player.setLoopMode(LoopMode.all);
     }
   }
 
+  @override
+  void onClose() {
+    player.dispose();
+    super.onClose();
+  }
 }
