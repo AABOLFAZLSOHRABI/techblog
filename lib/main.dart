@@ -5,13 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:techblog/constant/my_colors.dart';
-import 'package:techblog/view/articles/manage_article.dart';
-import 'package:techblog/view/articles/single_manage_article.dart';
-import 'package:techblog/view/main_screen/main_screen.dart';
-import 'package:techblog/view/articles/single.dart';
-import 'package:techblog/view/podcast/single_podcast.dart';
-import 'package:techblog/view/splash_screen.dart';
-import 'binding.dart';
+import 'package:techblog/route_manager/pages.dart';
 import 'my_http_overrides.dart';
 
 Future<void> main() async {
@@ -46,29 +40,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('fa'), // farsi
       ],
+      initialRoute: NamedRoute.initialRoute,
       theme: lightTheme(textTheme),
-      getPages: [
-        GetPage(
-            name: NamedRoute.routeMainScreen,
-            page: () => MainScreen(),
-            binding: RegisterBinding()),
-        GetPage(
-            name: NamedRoute.routeSingleArticle,
-            page: () => Single(),
-            binding: ArticleBinding()),
-        GetPage(
-            name: NamedRoute.routeManageArticle,
-            page: () => ManageArticle(),
-            binding: ArticleManagerBinding()),
-        GetPage(
-            name: NamedRoute.routeSingleManageArticle,
-            page: () => SingleManageArticle(),
-              binding: ArticleManagerBinding()),
-        GetPage(
-            name: NamedRoute.routeSinglePodcast,
-            page: () => SinglePodcast()),
-      ],
-      home: const SplashScreen(),
+      getPages: Pages.pages,
     );
   }
 
@@ -137,13 +111,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-class NamedRoute {
-  NamedRoute._();
-  static String routeMainScreen = '/MainScreen';
-  static String routeSingleArticle = '/SingleArticle';
-  static String routeManageArticle = '/ManageArticle';
-  static String routeSingleManageArticle = '/SingleManageArticle';
-  static String routeSinglePodcast = '/SinglePodcast';
 }

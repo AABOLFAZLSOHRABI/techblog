@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:techblog/component/my_component.dart';
 import 'package:techblog/constant/my_strings.dart';
-import '../../controller/article/manage_article_controller.dart';
+import 'package:techblog/controller/article/manage_article_controller.dart';
 
 class ArticleContentEditor extends StatelessWidget {
   ArticleContentEditor({super.key});

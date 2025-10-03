@@ -5,8 +5,8 @@ import 'package:techblog/constant/my_colors.dart';
 import 'package:techblog/component/my_component.dart';
 import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/article/manage_article_controller.dart';
-import '../../gen/assets.gen.dart';
-import '../../main.dart';
+import 'package:techblog/gen/assets.gen.dart';
+import 'package:techblog/route_manager/pages.dart';
 
 class ManageArticle extends StatelessWidget {
   ManageArticle({super.key});

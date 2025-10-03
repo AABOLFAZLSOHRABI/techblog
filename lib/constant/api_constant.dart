@@ -1,4 +1,5 @@
 class ApiUrlConstant{
+  ApiUrlConstant._();
   static const hostDlUrl = "https://techblog.sasansafari.com";
   static const baseUrl = "https://techblog.sasansafari.com/Techblog/api/";
   static const getHomeItems = "${baseUrl}home/?command=index";
@@ -9,7 +10,7 @@ class ApiUrlConstant{
   static const podcastFiles = "${baseUrl}podcast/get.php?command=get_files&podcats_id=";
 }
 class ApiArticleKeyConstant{
-
+  ApiArticleKeyConstant._();
   static const title ="title";
   static const content ="content";
   static const catId ="cat_id";

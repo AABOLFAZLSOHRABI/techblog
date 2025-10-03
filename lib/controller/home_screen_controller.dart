@@ -4,7 +4,7 @@ import 'package:techblog/models/podcast_model.dart';
 import 'package:techblog/models/poster_model.dart';
 import 'package:techblog/models/article_model.dart';
 import 'package:techblog/services/dio_service.dart';
-import '../models/tags_model.dart';
+import 'package:techblog/models/tags_model.dart';
 
 class HomeScreenController extends GetxController {
   late Rx<PosterModel> poster = PosterModel().obs;

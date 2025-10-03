@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:techblog/constant/my_colors.dart';
 import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/register_controller.dart';
-import '../../gen/assets.gen.dart';
+import 'package:techblog/gen/assets.gen.dart';
 
 class RegisterIntro extends StatelessWidget {
   RegisterIntro({super.key});

@@ -8,10 +8,10 @@ import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/article/manage_article_controller.dart';
 import 'package:techblog/controller/home_screen_controller.dart';
 import 'package:techblog/gen/assets.gen.dart';
-import '../../component/dimens.dart';
-import '../../component/my_component.dart';
-import '../../controller/file_controller.dart';
-import '../../services/pick_file.dart';
+import 'package:techblog/component/dimens.dart';
+import 'package:techblog/component/my_component.dart';
+import 'package:techblog/controller/file_controller.dart';
+import 'package:techblog/services/pick_file.dart';
 import 'article_content_editor.dart';
 
 class SingleManageArticle extends StatelessWidget {

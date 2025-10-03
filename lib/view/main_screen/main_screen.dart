@@ -7,9 +7,9 @@ import 'package:techblog/controller/register_controller.dart';
 import 'package:techblog/view/main_screen/home_screen.dart';
 import 'package:techblog/view/main_screen/profile_screen.dart';
 import 'package:techblog/view/register/register_intro.dart';
-import '../../component/dimens.dart';
-import '../../constant/my_colors.dart';
-import '../../gen/assets.gen.dart';
+import 'package:techblog/component/dimens.dart';
+import 'package:techblog/constant/my_colors.dart';
+import 'package:techblog/gen/assets.gen.dart';
 import 'package:get/get.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();

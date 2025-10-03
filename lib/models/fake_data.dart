@@ -1,5 +1,5 @@
 import 'package:techblog/models/data_models.dart';
-import '../gen/assets.gen.dart';
+import 'package:techblog/gen/assets.gen.dart';
 
 // ignore: non_constant_identifier_names
 Map HomePagePosterMap = {

@@ -6,8 +6,8 @@ import 'package:techblog/constant/my_colors.dart';
 import 'package:techblog/controller/article/list_article_controller.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:techblog/view/articles/article_list_screen.dart';
-import '../../component/my_component.dart';
-import '../../controller/article/single_article_controller.dart';
+import 'package:techblog/component/my_component.dart';
+import 'package:techblog/controller/article/single_article_controller.dart';
 
 class Single extends StatelessWidget {
   Single({super.key});

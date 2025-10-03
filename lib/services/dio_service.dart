@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio_services;
 import 'package:get_storage/get_storage.dart';
-import '../constant/storage_const.dart';
+import 'package:techblog/constant/storage_const.dart';
 
 class DioService {
   Dio dio = Dio();

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:techblog/controller/article/list_article_controller.dart';
 import 'package:techblog/controller/article/manage_article_controller.dart';
-import 'controller/article/single_article_controller.dart';
-import 'controller/register_controller.dart';
+import 'package:techblog/controller/article/single_article_controller.dart';
+import 'package:techblog/controller/register_controller.dart';
 
 class ArticleBinding implements Bindings {
   @override

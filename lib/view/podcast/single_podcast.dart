@@ -6,9 +6,9 @@ import 'package:techblog/component/decorations.dart';
 import 'package:techblog/component/dimens.dart';
 import 'package:techblog/controller/podcast/single_podcast_controller.dart';
 import 'package:techblog/models/podcast_model.dart';
-import '../../component/my_component.dart';
-import '../../constant/my_colors.dart';
-import '../../gen/assets.gen.dart';
+import 'package:techblog/component/my_component.dart';
+import 'package:techblog/constant/my_colors.dart';
+import 'package:techblog/gen/assets.gen.dart';
 
 class SinglePodcast extends StatelessWidget {
   late final SinglePodcastController controller;
@@ -126,6 +126,7 @@ class SinglePodcast extends StatelessWidget {
                           onTap: () {
                             controller.player.seek(Duration.zero,index: index);
                             controller.currentFileIndex.value = controller.player.currentIndex!;
+                            controller.timerCheckIndexChange();
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -208,6 +209,7 @@ class SinglePodcast extends StatelessWidget {
                           onTap: () async {
                             await controller.player.seekToNext();
                             controller.currentFileIndex.value = controller.player.currentIndex!;
+                            controller.timerCheckIndexChange();
                           },
                           child: const Icon(
                               Icons.skip_next_sharp, color: Colors.white)),
@@ -231,8 +233,12 @@ class SinglePodcast extends StatelessWidget {
                                 color: Colors.white, size: 48),
                           )),
                       GestureDetector(
-                          onTap: () async => await controller.player.seekToPrevious(),
-                          child: const Icon(Icons.skip_previous, color: Colors.white)),
+                          onTap: () async {
+                            await controller.player.seekToPrevious();
+                            controller.timerCheckIndexChange();
+                          },
+                          child: const Icon(Icons.skip_previous,
+                              color: Colors.white)),
                       const SizedBox(width: 16),
                       Obx(() => GestureDetector(
                             onTap: () {

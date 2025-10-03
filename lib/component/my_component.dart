@@ -3,8 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:techblog/controller/home_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../gen/assets.gen.dart';
-import '../constant/my_colors.dart';
+import 'package:techblog/gen/assets.gen.dart';
+import 'package:techblog/constant/my_colors.dart';
 
 class TechDivider extends StatelessWidget {
   const TechDivider({

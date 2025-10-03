@@ -7,9 +7,9 @@ import 'package:techblog/controller/file_controller.dart';
 import 'package:techblog/models/article_info_model.dart';
 import 'package:techblog/models/article_model.dart';
 import 'package:techblog/models/tags_model.dart';
-import '../../constant/api_constant.dart';
-import '../../constant/commands.dart';
-import '../../services/dio_service.dart';
+import 'package:techblog/constant/api_constant.dart';
+import 'package:techblog/constant/commands.dart';
+import 'package:techblog/services/dio_service.dart';
 
 class ManageArticleController extends GetxController {
   RxList<ArticleModel> articleList = RxList.empty();

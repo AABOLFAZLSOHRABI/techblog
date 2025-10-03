@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/controller/home_screen_controller.dart';
-import '../../component/dimens.dart';
-import '../../controller/article/single_article_controller.dart';
-import '../../gen/assets.gen.dart';
-import '../../main.dart';
-import '../../models/fake_data.dart';
-import '../../constant/my_colors.dart';
-import '../../component/my_component.dart';
-import '../articles/article_list_screen.dart';
+import 'package:techblog/component/dimens.dart';
+import 'package:techblog/controller/article/single_article_controller.dart';
+import 'package:techblog/gen/assets.gen.dart';
+import 'package:techblog/models/fake_data.dart';
+import 'package:techblog/constant/my_colors.dart';
+import 'package:techblog/component/my_component.dart';
+import 'package:techblog/route_manager/pages.dart';
+import 'package:techblog/view/articles/article_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({

@@ -1,5 +1,5 @@
 import 'package:flutter/rendering.dart';
-import '../constant/my_colors.dart';
+import 'package:techblog/constant/my_colors.dart';
 
 class MyDecorations {
   MyDecorations._();

@@ -6,11 +6,11 @@ import 'package:techblog/constant/my_colors.dart';
 import 'package:techblog/constant/my_strings.dart';
 import 'package:techblog/constant/storage_const.dart';
 import 'package:techblog/gen/assets.gen.dart';
-import 'package:techblog/main.dart';
 import 'package:techblog/view/main_screen/main_screen.dart';
 import 'package:techblog/view/register/register_intro.dart';
-import '../constant/api_constant.dart';
-import '../services/dio_service.dart';
+import 'package:techblog/constant/api_constant.dart';
+import 'package:techblog/route_manager/pages.dart';
+import 'package:techblog/services/dio_service.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailTextEditingController = TextEditingController();

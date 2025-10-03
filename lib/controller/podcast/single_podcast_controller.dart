@@ -6,7 +6,7 @@ import 'package:techblog/services/dio_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SinglePodcastController extends GetxController {
-  var id;
+  final dynamic id;
   RxBool loading = false.obs;
   RxList<PodcastFileModel> podcastFileList = RxList();
   final player = AudioPlayer();
@@ -84,5 +84,9 @@ class SinglePodcastController extends GetxController {
         player.setLoopMode(LoopMode.all);
       }
     }
-
+    timerCheckIndexChange(){
+    if(player.playing){
+      startProgress();
+    }
+    }
   }
