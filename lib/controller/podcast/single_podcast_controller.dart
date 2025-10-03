@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:techblog/constant/api_constant.dart';
 import 'package:techblog/models/podcast_file_model.dart';
@@ -51,20 +52,37 @@ class SinglePodcastController extends GetxController {
     }
     loading.value = false;
   }
+  Rx<Duration> progressValue = const Duration(seconds: 0).obs;
+  Rx<Duration> bufferedValue = const Duration(seconds: 0).obs;
+  Timer? timer;
 
-  void setLoopMode() {
-    if (isLoopAll.value) {
-      isLoopAll.value = false;
-      player.setLoopMode(LoopMode.off);
-    } else {
-      isLoopAll.value = true;
-      player.setLoopMode(LoopMode.all);
+  startProgress(){
+    const tick = Duration(seconds: 1);
+    int duration = player.duration!.inSeconds - player.position.inSeconds;
+    if(timer!=null && timer!.isActive){
+      timer!.cancel();
+      timer = null;
     }
-  }
+    timer = Timer.periodic(tick, (timer) {
+      duration --;
+      progressValue.value = player.position;
+      bufferedValue.value = player.bufferedPosition;
+      if(duration <=0){
+        timer.cancel();
+        progressValue.value = const Duration(seconds: 0);
+        bufferedValue.value = const Duration(seconds: 0);
+      }});
+    }
 
-  @override
-  void onClose() {
-    player.dispose();
-    super.onClose();
+    setLoopMode(){
+      if(isLoopAll.value){
+        isLoopAll.value = false;
+        player.setLoopMode(LoopMode.off);
+      }
+      else{
+        isLoopAll.value = true;
+        player.setLoopMode(LoopMode.all);
+      }
+    }
+
   }
-}

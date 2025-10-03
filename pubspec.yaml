@@ -29,6 +29,7 @@ dependencies:
   html_editor_enhanced: ^2.7.1
   percent_indicator: ^4.2.5
   just_audio: ^0.10.5
+  audio_video_progress_bar: ^2.0.3
 
 dev_dependencies:
   flutter_test:
